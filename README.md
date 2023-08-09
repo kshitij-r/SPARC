@@ -1,11 +1,11 @@
-# SSEL : A System Specification Language
+# SPARK : Specification and Analysis of Hardware-Software Interactions
 #### Version: 0.1
 #### Release Date: August 09, 2023
 <br>
 
 ### A Brief Description:
-In SSEL, we used a set of existing constructs from C++ and loops, functions, structures, and data types are used to define the constructs. We augmented SSEL with new data types to account for the binary and hexadecimal nature of the data transferred during on-chip transactions. Since SSEL is designed to provide abstraction of system-level communication, the technical details of various bus protocol implementations
-are encapsulated into APIs “baked” into the language abstraction. All inter-IP interactions are oblivious to existing bus implementations to enable reusability of SSEL specifications across platforms and interconnect protocols.
+In SPARK, we used a set of existing constructs from C++ and loops, functions, structures, and data types are used to define the constructs. We augmented SPARK with new data types to account for the binary and hexadecimal nature of the data transferred during on-chip transactions. Since SPARK is designed to provide abstraction of system-level communication, the technical details of various bus protocol implementations
+are encapsulated into APIs “baked” into the language abstraction. All inter-IP interactions are oblivious to existing bus implementations to enable reusability of SPARK specifications across platforms and interconnect protocols.
 <br>
 
 Each agent can be derived from the slave class (slaveconfig.cpp). This will be revised in the future to support more base class agent types<br><br>
@@ -117,7 +117,7 @@ This method displays the contents of the ingress FIFO.
   * void display_fifo();
 
 ## Memory Module Class
-SoC transactions need a memory model to perform read/write operations. SSEL comes with a memory model which enables this. This class extends the following classes:
+SoC transactions need a memory model to perform read/write operations. SPARK comes with a memory model which enables this. This class extends the following classes:
 * BaseIP
 ```C++
 class baseIP
@@ -145,7 +145,7 @@ This method resets the entire memory model and sets the values to 0.
 This method reads the fetch status of the memory. Fetch status is used to ensure that the memory is ready to send data when queried.
 
 ## Global Memory Map Class
-SoC transactions need a memory model to perform read/write operations. SSEL comes with a memory model which enables this. This class extends the following classes:
+SoC transactions need a memory model to perform read/write operations. SPARK comes with a memory model which enables this. This class extends the following classes:
 
 ```C++
 class Log
@@ -174,12 +174,12 @@ This method reads the value of the register(key) in the memory map.
 This method updates the value of the register(key) in the memory map.
 
 ## Interface Class
-Agents modeled in SSEL can interact with each other using interface registers which can be specified using the Interface constructs provided in the language.
+Agents modeled in SPARK can interact with each other using interface registers which can be specified using the Interface constructs provided in the language.
 For example, if an interface register called "duration is needed", it can be specified in the definition of the agent in the "public" scope, as shown below. The first field in the struct represents the name of the interface register and the second shows its direction as seen from the agent it is specified in.
 
 * ```C++
     interfaceRegisters duration = {"duration","INPUT"};
 
 ### Requirements
-* This version of SSEL requires C++17 or above to build.
-* KLEE is required for formal analysis of specifications generated using SSEL. It can be downloaded by clicking [here](https://klee.github.io/). The Docker version of KLEE should be prefered.
+* This version of SPARK requires C++17 or above to build.
+* KLEE is required for formal analysis of specifications generated using SPARK. It can be downloaded by clicking [here](https://klee.github.io/). The Docker version of KLEE should be prefered.
