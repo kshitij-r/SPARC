@@ -1,0 +1,226 @@
+import os
+import json
+import pprint
+import random
+from atomic_parser import *
+from regex_patterns import *
+from datetime import datetime
+
+class queueGenerator:
+    def __init__(self, path, filename): 
+        self.path = path
+        self.filename = filename
+        self.initial_state_map = dict()
+        self.directory_name = ""
+    
+    def entityTemplateGenerator(self):
+        atomicParser = Parser(self.path, self.filename)
+        atomicParser.module_extractor();
+        atomicParser.displayFunctionTree();
+        formalTestFile = "klee_sim.cpp"
+        file_path = os.path.join(atomicParser.directory_name, formalTestFile)
+        print("[LOG] Formal Working directory --> ",atomicParser.directory_name)
+        with open(file_path, "w") as file:
+            """
+            --> Write the header files from the source file to the test harness
+            """
+            self.directory_name = atomicParser.directory_name
+            headerPath = os.path.join(atomicParser.directory_name, "header_contents.txt")
+            with open(headerPath, "r") as headerHandle:
+                headerContents = headerHandle.read()
+                file.write("/*\n")
+                file.write("--> Headers from concurrent source file\n")
+                file.write("*/\n")
+                file.write(headerContents)
+                file.write('\n')
+                file.write("#define SINGLE_ENTRY_POINT 1\n")
+                file.write('\n')
+                file.write('using namespace std;\n')
+            
+            """
+            --> Auto generated entity and class and object instantiations based on SSEL-provided classes and constructs
+            """
+            file.write('\n')
+            file.write("/*\n")
+            file.write("--> Entity class object instantiation\n")
+            file.write("*/\n")
+            for key, value in atomicParser.class_definition.items():
+                file.write(value + "* " + key + " = " + "new " + value + ";\n")
+            file.write('\n')
+            
+            """
+            --> Auto generated events
+            """
+            file.write("/*\n")
+            file.write("--> Auto generated events\n")
+            file.write("*/\n")
+            for item in atomicParser.eventlist:
+                file.write(item)
+                
+            """
+            --> Auto generated Assertion Variables
+            """
+            file.write("/*\n")
+            file.write("--> Auto generated assertion variables\n")
+            file.write("*/\n")
+            for item in atomicParser.assertionvariables:
+                file.write(item)
+            
+            """
+            --> Auto generated function template for all entities declared in the concurrent source file 
+            --> Template of Abstract Syntax Tree of Function Tree:
+            {
+                key: [ return type,
+                       [function arguments],
+                       function body,
+                       function body file name,
+                       processID
+                       [atomic block file names],
+                       count of atomic blocks,
+                       formal process name]
+            }
+            """
+            file.write('\n')
+            file.write("/*\n")
+            file.write("--> Specification Entity Blocks\n")
+            file.write("*/\n")
+            file.write('\n')
+            for item in atomicParser.functionTree:
+                atomicCounter = 1
+                file.write("// --> " + atomicParser.functionTree[item][7] + " instance\n")
+                file.write(atomicParser.functionTree[item][0] + " " + atomicParser.functionTree[item][7] + "(queue<int> queue_inst){\n")
+                file.write("    if(queue_inst.size() == 0){\n")
+                file.write("        return;\n")
+                file.write("    }\n")
+                file.write("    int instruction = queue_inst.front();\n")
+                file.write("    switch(instruction){\n")
+                """
+                --> The below code places the atomic blocks inside the corresponding process instance in the order they
+                    were declared in the specification
+                """
+                for count in range(atomicParser.functionTree[item][6]):
+                    file.write("        case " + str(atomicCounter) + ":\n")
+                    atomic_file_path = os.path.join(atomicParser.directory_name, atomicParser.functionTree[item][5][count])
+                    with open(atomic_file_path, "r") as atomicHandle:
+                        atomicContent = atomicHandle.readlines()
+                        AtomicElementLineLength = len(atomicContent)
+                        linecounter = 0
+                        for line in atomicContent:
+                            if line in atomicParser.flattenedWaitStatement:
+                                for index in range(len(atomicParser.flattenedWaitStatement)):
+                                    if atomicParser.flattenedWaitStatement[index] == line:
+                                        file.write("            if(" + atomicParser.flattenedFormalWhiletoIf[index] + "){\n")
+                                        linecounter = linecounter + 1
+                                        if (AtomicElementLineLength == linecounter):
+                                            file.write("                queue_inst.pop();\n")
+                                        if (AtomicElementLineLength == linecounter):
+                                            if atomicCounter != atomicParser.functionTree[item][6]:
+                                                file.write("                queue_inst.push(" + str(atomicCounter + 1) + ");\n")
+                                        file.write("            }\n")
+                                        file.write("            else{\n")
+                                        file.write("                // return back to existing instruction {case: " + str(atomicCounter) + "}\n")
+                                        file.write("            }\n")
+                            else:
+                                file.write("                " + line)
+                                linecounter = linecounter + 1
+                                if (AtomicElementLineLength == linecounter):
+                                    file.write('\n')
+                                    file.write("                queue_inst.pop();\n")
+                                if (AtomicElementLineLength == linecounter):
+                                    if atomicCounter != atomicParser.functionTree[item][6]:
+                                        file.write("                queue_inst.push(" + str(atomicCounter + 1) + ");\n")
+                        atomicCounter = atomicCounter + 1
+                file.write("    }\n")  
+                file.write("}\n")
+                file.write('\n')
+                
+            """
+            --> Main test harness structure generation starts here
+            """
+            file.write("/*\n")
+            file.write("--> Main test harness and Symbolic Test Function\n")
+            file.write("*/\n")
+            file.write("int main(){\n")
+            file.write("    int process_ID;\n")
+            file.write("    int common_initial_state = SINGLE_ENTRY_POINT;\n")
+            
+            """
+            --> Declare and establish queues for each entity in the function tree
+            """
+            for key in atomicParser.functionTree:
+                if atomicParser.functionTree[key][6] > 1:
+                    common_state_symbolic = key + "_initial_state"
+                    common_state = key + "_initial_state" + ";\n"
+                    self.initial_state_map[key] = common_state_symbolic
+                    file.write("    int " + common_state)
+                queue_name = key + "_queue"
+                file.write("    queue<int> " + queue_name + ";\n")
+                file.write("    " + queue_name + ".push(common_initial_state);\n")
+            for key in atomicParser.functionTree:
+                file.write("    " + atomicParser.functionTree[key][7] + "(" + key + "_queue);\n")
+            
+            """
+            --> Generate symbolic execution test platform for KLEE Engine
+            """
+            file.write('\n')
+            file.write("/*\n")
+            file.write("--> Symbolic execution test platform\n")
+            file.write("*/\n")
+            file.write("    int schedular_queue_size;\n")
+            file.write("    int rand_processID;\n")
+            file.write('    klee_make_symbolic(&schedular_queue_size, sizeof(schedular_queue_size), "schedular_queue_size");\n')
+            
+            # calculate the size of queue based on number of agents (HW or SW) in the specification
+            # queue size is number of agents + 2
+            #TODO Add limit message to formal validation scalability
+            numberofAgents = len(atomicParser.functionTree)
+            queueSizeMin = numberofAgents
+            queueSizeMax = numberofAgents + 2
+            file.write("    klee_assume((schedular_queue_size>=" + str(queueSizeMin) + ") & (schedular_queue_size<" + str(queueSizeMax) + "));\n")  
+            file.write("    queue<int> scheduler_queue;\n")
+            
+            file.write("    for(int i = 0; i<schedular_queue_size; i++){\n")
+            file.write('        klee_make_symbolic(&rand_processID, sizeof(rand_processID), "rand_processID");\n')
+            rand_pID = random.randint(1,len(atomicParser.functionTree))
+            file.write("        klee_assume(rand_processID<" + str(rand_pID) + " & rand_processID>0);\n") 
+            file.write("        scheduler_queue.push(rand_processID);\n")
+            file.write("    }\n")
+            file.write("\n")
+            
+            file.write("    while(!scheduler_queue.empty()){\n")
+            file.write("        process_ID = scheduler_queue.front();\n")
+            file.write("        scheduler_queue.pop();\n")
+            symbolic_loop_counter = 0
+            for key in atomicParser.functionTree:
+                if(atomicParser.functionTree[key][6] > 1):
+                    if(symbolic_loop_counter == 0):
+                        file.write("        if(process_ID == " + str(atomicParser.functionTree[key][4]) + "){\n")
+                        symbolic_loop_counter = symbolic_loop_counter + 1
+                    else:
+                        file.write("        else if(process_ID == " + str(atomicParser.functionTree[key][4]) + "){\n")
+                    file.write('            klee_make_symbolic(&' + self.initial_state_map[key] + ', sizeof(' + self.initial_state_map[key] + '), "' + self.initial_state_map[key] + '");\n')
+                    file.write('            if(' + self.initial_state_map[key] + ' == ' + str(random.randrange(1, atomicParser.functionTree[key][6])) + '){\n')
+                    file.write('                ' + key + '_queue.push(' + self.initial_state_map[key] + ');\n')
+                    file.write('                ' + atomicParser.functionTree[key][7] + '(' + key + '_queue);\n')
+                    file.write('             }\n')
+                    file.write('        }\n')
+            file.write('    }\n')
+            
+            """
+            --> Assertion placement in the test harness
+            """
+            file.write("/*\n")
+            file.write("--> Assertions\n")
+            file.write("*/\n")
+            for value in atomicParser.assertionList:
+                file.write(' ' + str(value) + '\n')
+            file.write('  return 0;\n')
+            file.write('}')
+            file.close()
+ 
+# def main():
+#     obj = queueGenerator('/home/klee/klee_src/examples/v0.1release', 'test_pattern.cpp')
+#     obj.entityTemplateGenerator()
+
+# if __name__ == '__main__':
+#     main()

@@ -1,0 +1,36 @@
+array rand_processID[4] : w32 -> w8 = symbolic
+array rand_processID_1[4] : w32 -> w8 = symbolic
+array rand_processID_2[4] : w32 -> w8 = symbolic
+array rand_processID_3[4] : w32 -> w8 = symbolic
+array resetDriver_initial_state[4] : w32 -> w8 = symbolic
+array resetDriver_initial_state_1[4] : w32 -> w8 = symbolic
+array resetDriver_initial_state_2[4] : w32 -> w8 = symbolic
+array resetDriver_initial_state_3[4] : w32 -> w8 = symbolic
+array schedular_queue_size[4] : w32 -> w8 = symbolic
+(query [(Eq false
+             (Eq 0
+                 (And w32 (ZExt w32 (Sle 4
+                                         N0:(ReadLSB w32 0 schedular_queue_size)))
+                          (ZExt w32 (Slt N0 6)))))
+         (Eq false (Slt 4 N0))
+         (Eq 1
+             (ReadLSB w32 0 rand_processID))
+         (Eq false
+             (Eq 2
+                 (ReadLSB w32 0 resetDriver_initial_state)))
+         (Eq 1
+             (ReadLSB w32 0 rand_processID_1))
+         (Eq false
+             (Eq 2
+                 (ReadLSB w32 0 resetDriver_initial_state_1)))
+         (Eq 1
+             (ReadLSB w32 0 rand_processID_2))
+         (Eq false
+             (Eq 2
+                 (ReadLSB w32 0 resetDriver_initial_state_2)))
+         (Eq 1
+             (ReadLSB w32 0 rand_processID_3))
+         (Eq false
+             (Eq 2
+                 (ReadLSB w32 0 resetDriver_initial_state_3)))]
+        false)

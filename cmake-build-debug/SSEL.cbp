@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="SSEL"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SSEL">
+				<Option output="/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/SSEL" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 SSEL"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SSEL/fast">
+				<Option output="/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/SSEL" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 SSEL/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/kshitijraj/CLionProjects/SSEL/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/auth_driver.cpp">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/authentication.cpp">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/data_comm.cpp">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/ip_config.h">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/locking_driver.cpp">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/logiclocking.cpp">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/main.cpp">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/master_IP.cpp">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/mem_init.cpp">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/memory_transaction.h">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/secure_boot_gpio.cpp">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/slave_IP.cpp">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/trigger_instance.cpp">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/uid.h">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/wrapper_architecture.cpp">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/wrapper_config.h">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/writetomem.cpp">
+			<Option target="SSEL"/>
+		</Unit>
+		<Unit filename="/Users/kshitijraj/CLionProjects/SSEL/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
