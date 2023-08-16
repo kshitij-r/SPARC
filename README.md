@@ -1,7 +1,6 @@
 # SPARC : Specification and Analysis of Hardware-Software Interactions
 #### Version: 0.1
 #### Release Date: August 09, 2023
-<br>
 
 ### A Brief Description:
 In SPARC, we used a set of existing constructs from C++ and loops, functions, structures, and data types are used to define the constructs. We augmented SPARC with new data types to account for the binary and hexadecimal nature of the data transferred during on-chip transactions. Since SPARC is designed to provide abstraction of system-level communication, the technical details of various bus protocol implementations
