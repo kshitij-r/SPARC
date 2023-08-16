@@ -8,7 +8,9 @@ In SPARC, we used a set of existing constructs from C++ and loops, functions, st
 are encapsulated into APIs “baked” into the language abstraction. All inter-IP interactions are oblivious to existing bus implementations to enable reusability of SPARC specifications across platforms and interconnect protocols.
 <br>
 
-Each agent can be derived from the **slave class [slaveconfig.cpp]**. This will be revised in the future to support more base class agent types.
+![Feature Set of an SSEL Agent](figures/TechCon%202023%20SSEL/features.png)
+Each agent/entity can be derived from the **slave class [slaveconfig.cpp]**. This will be revised in the future to support more base class agent types.
+
 ### Requirements
 1. This version of SPARC requires C++17 or above to build.
 2. KLEE is required for formal analysis of specifications generated using SPARC. It can be downloaded by clicking [here](https://klee.github.io/). The Docker version of KLEE should be prefered.
