@@ -77,7 +77,7 @@ class AGENT_NAME : public slaveIP{
 
 // Here, all the function body can be specified. This can also be done in the function declaration above.
 ``` 
-More documentation on each of the SPARC constructs and features can be found [here](//klee_src/examples/v0.1release/Documentation/)
+More documentation on each of the SPARC constructs and features can be found [here](/Documentation/)
 
 
 
