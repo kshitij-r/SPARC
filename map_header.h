@@ -32,7 +32,3 @@ struct  interfaceRegisters{
                 int pathCount;
             };
 #endif /* MAP_HEADER_H */
-
-// int main() {
-//     return 0;
-// }

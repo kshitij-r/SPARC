@@ -1,7 +1,0 @@
-Error: ASSERTION FAIL: !__assertion__crcTriggerAssert || (__assertion__crcTriggerAssert && !__assertion__timerTriggerassert)
-File: formalTestHarness.cpp
-Line: 232
-assembly.ll line: 6431
-State: 135
-Stack: 
-	#000006431 in main () at formalTestHarness.cpp:232

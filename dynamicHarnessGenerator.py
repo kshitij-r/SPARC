@@ -1,5 +1,6 @@
 import os
 import json
+import shutil
 import pprint
 from atomic_parser import *
 from regex_patterns import *
@@ -91,11 +92,14 @@ class DynamicParser:
                     
                     # write updated lines to a new dynamic synthesis file
                     resultFile.write(line)
+                    # resultFile.close()
+                    
+                    
             
     
-def main():
-    obj = DynamicParser('/home/klee/klee_src/examples/v0.1release', 'test_pattern.cpp')
-    obj.parseFile()
+# def main():
+#     obj = DynamicParser('/home/klee/klee_src/examples/v0.1release', 'test_pattern.cpp')
+#     obj.parseFile()
    
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

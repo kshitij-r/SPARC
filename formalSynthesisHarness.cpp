@@ -195,14 +195,14 @@ int main(){
         scheduler_queue.pop();
         if(process_ID == 1){
             klee_make_symbolic(&resetDriver_initial_state, sizeof(resetDriver_initial_state), "resetDriver_initial_state");
-            if(resetDriver_initial_state == 2){
+            if(resetDriver_initial_state == 1){
                 resetDriver_queue.push(resetDriver_initial_state);
                 resetDriver_process(resetDriver_queue);
              }
         }
         else if(process_ID == 2){
             klee_make_symbolic(&swDriver_initial_state, sizeof(swDriver_initial_state), "swDriver_initial_state");
-            if(swDriver_initial_state == 2){
+            if(swDriver_initial_state == 3){
                 swDriver_queue.push(swDriver_initial_state);
                 swDriver_process(swDriver_queue);
              }
@@ -216,7 +216,7 @@ int main(){
         }
         else if(process_ID == 4){
             klee_make_symbolic(&timerDriver_initial_state, sizeof(timerDriver_initial_state), "timerDriver_initial_state");
-            if(timerDriver_initial_state == 2){
+            if(timerDriver_initial_state == 3){
                 timerDriver_queue.push(timerDriver_initial_state);
                 timerDriver_process(timerDriver_queue);
              }

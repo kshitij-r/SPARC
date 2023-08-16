@@ -1,3 +1,1 @@
 KLEE: Using STP solver backend
-KLEE: ERROR: formalTestHarness.cpp:232: ASSERTION FAIL: !__assertion__crcTriggerAssert || (__assertion__crcTriggerAssert && !__assertion__timerTriggerassert)
-KLEE: NOTE: now ignoring this error at this location

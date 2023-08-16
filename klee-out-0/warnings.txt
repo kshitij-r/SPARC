@@ -48,17 +48,8 @@ KLEE: WARNING: undefined reference to function: strlen
 KLEE: WARNING: undefined reference to function: vsnprintf
 KLEE: WARNING ONCE: Alignment of memory from call "_Znwm" is not modelled. Using alignment of 8.
 KLEE: WARNING ONCE: Alignment of memory from call "_Znam" is not modelled. Using alignment of 8.
-KLEE: WARNING ONCE: calling external: _ZNSaIcEC1Ev(94509408654376) at ./resetController.cpp:9 38
-KLEE: WARNING ONCE: calling external: _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_(94509401753192, 94509408654008, 94509408654376) at ./resetController.cpp:5 0
-KLEE: WARNING ONCE: calling external: _ZNSaIcED1Ev(94509408654368) at ./resetController.cpp:9 37
-KLEE: WARNING ONCE: calling external: _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSERKS4_(94509410263624, 94509401755504) at ./slave_config.cpp:28 17
-KLEE: WARNING ONCE: calling external: _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev(94509410202848) at ./softwareController.cpp:36 0
-KLEE: WARNING ONCE: calling external: vsnprintf(94509408644160, 16, 94509408654000, 94509409890016) at /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../../include/c++/7.5.0/ext/string_conversions.h:111 17
-KLEE: WARNING ONCE: calling external: _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_local_dataEv(94509410464032) at /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../../include/c++/7.5.0/bits/basic_string.h:606 33
-KLEE: WARNING ONCE: calling external: _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderC1EPcRKS3_(94509410464032, 94509410464048, 94509408655312) at /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../../include/c++/7.5.0/bits/basic_string.h:607 17
-KLEE: WARNING ONCE: calling external: _ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv(94509410464032) at /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../../include/c++/7.5.0/bits/basic_string.tcc:225 37
-KLEE: WARNING ONCE: calling external: _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_S_copy_charsEPcS5_S5_(94509410464048, 94509408644160, 94509408644165) at /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../../include/c++/7.5.0/bits/basic_string.tcc:225 52
-KLEE: WARNING ONCE: calling external: _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm(94509410464032, 5) at /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../../include/c++/7.5.0/bits/basic_string.tcc:233 7
-KLEE: WARNING ONCE: calling external: _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6insertEmPKc(94509410464032, 0, 94509408971680) at /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../../include/c++/7.5.0/bits/basic_string.h:5979 14
-KLEE: WARNING ONCE: calling external: _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EOS4_(94509410202016, 94509410464032) at /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../../include/c++/7.5.0/bits/basic_string.h:5979 7
-KLEE: WARNING ONCE: calling external: _ZNSt6chrono3_V212system_clock3nowEv() at ./timerController.cpp:33 22
+KLEE: WARNING ONCE: calling external: _ZNSaIcEC1Ev(94097379841064) at ./resetController.cpp:9 38
+KLEE: WARNING ONCE: calling external: _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_(94097372939880, 94097379840696, 94097379841064) at ./resetController.cpp:5 0
+KLEE: WARNING ONCE: calling external: _ZNSaIcED1Ev(94097379841056) at ./resetController.cpp:9 37
+KLEE: WARNING ONCE: calling external: _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSERKS4_(94097381450312, 94097372942192) at ./slave_config.cpp:28 17
+KLEE: WARNING ONCE: calling external: _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev(94097381391616) at ./softwareController.cpp:36 0

@@ -3,18 +3,6 @@
                '//atomic_init\n'
                '    crc->waiton_Reset();\n'
                '    //atomic_end\n'
-               '    \n'
-               '    //atomic_init\n'
-               '    wait__(__event__crcRequest);\n'
-               '    //atomic_end\n'
-               '\n'
-               '    //atomic_init\n'
-               '    wait__(!__event__dmaRequest);\n'
-               '    //atomic_end\n'
-               '\n'
-               '    //atomic_init\n'
-               '    wait__(__event__yaaRequest);\n'
-               '    //atomic_end\n'
                '\n'
                '    //atomic_init\n'
                '    crc->crc_trigger();\n'
@@ -27,11 +15,8 @@
                3,
                ['atomicBlock_0_crcDriver.txt',
                 'atomicBlock_1_crcDriver.txt',
-                'atomicBlock_2_crcDriver.txt',
-                'atomicBlock_3_crcDriver.txt',
-                'atomicBlock_4_crcDriver.txt',
-                'atomicBlock_5_crcDriver.txt'],
-               6,
+                'atomicBlock_2_crcDriver.txt'],
+               3,
                'crcDriver_process'],
  'resetDriver': ['void',
                  [],
@@ -96,7 +81,7 @@
                  '    //atomic_end\n'
                  '\n'
                  '    //atomic_init\n'
-                 '    while(!__event__timerSet){}\n'
+                 '    wait__(__event__timerSet);\n'
                  '    //atomic_end\n'
                  '\n'
                  '    //atomic_init\n'
@@ -104,7 +89,7 @@
                  '    //atomic_end\n'
                  '\n'
                  '    //atomic_init\n'
-                 '    while(!timer->timerDone.value){}\n'
+                 '    wait__(timer->timerDone.value);\n'
                  '    //atomic_end\n'
                  '\n'
                  '    //atomic_init\n'
