@@ -77,7 +77,9 @@ class AGENT_NAME : public slaveIP{
 
 // Here, all the function body can be specified. This can also be done in the function declaration above.
 ``` 
-More documentation on each of the SPARC constructs and features can be found [here](/Documentation/)
+More documentation on each of the SPARC constructs and features can be found [here](/Documentation/). For a video walkthough, please click [here](https://drive.google.com/file/d/1FouqvEBRwxMwFEAk99wn_y9iO8KQwEN0/view?usp=sharing).
+
+For further information or any issues related to this repository, please send an email to Kshitij Raj at kshitijraj@ufl.edu
 
 
 
