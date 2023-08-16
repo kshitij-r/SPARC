@@ -40,6 +40,7 @@ make synthesis_dynamic
 #### Formal synthesis
 SPARC uses a concurrent-tonon-concurrent program transformation to generate the test harness for formal analysis. The flow is shown in the figure below.
 ![Program Analysis Flow](figures/TechCon%202023%20SSEL/harness.png)
+
 Once the system specification is complete, follow the below steps:
 1. To generate the synthesis harness using SPARC:
 ```C++
