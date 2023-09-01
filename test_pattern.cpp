@@ -113,7 +113,6 @@ int main(){
     display_to_console("Reset thread Complete",2);
         //--assert(!__assertion__globalresetAssert || (__assertion__globalresetAssert && __event__resetRequest));
         //--assert(!__assertion__crcTriggerAssert || (__assertion__crcTriggerAssert && __assertion__timerTriggerassert));
-        //--assert(!__assertion__crcTriggerAssert || (__assertion__crcTriggerAssert && !__assertion__timerTriggerassert));
         return 0;
 }
 
