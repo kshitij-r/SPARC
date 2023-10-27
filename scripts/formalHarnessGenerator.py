@@ -7,19 +7,22 @@ from regex_patterns import *
 from datetime import datetime
 
 class queueGenerator:
-    def __init__(self, path, filename): 
-        self.path = path
+    def __init__(self, curdir, rundir, filename): 
+        self.curdir = curdir
+        self.rundir = rundir
         self.filename = filename
         self.initial_state_map = dict()
         self.directory_name = ""
     
     def entityTemplateGenerator(self):
-        atomicParser = Parser(self.path, self.filename)
-        atomicParser.module_extractor();
-        atomicParser.displayFunctionTree();
+        atomicParser = Parser(self.curdir, self.rundir, self.filename)
+        atomicParser.module_extractor()
+        atomicParser.displayFunctionTree()
         formalTestFile = "klee_sim.cpp"
-        file_path = os.path.join(atomicParser.directory_name, formalTestFile)
-        print("[LOG] Formal Working directory --> ",atomicParser.directory_name)
+        output_formal_file = self.rundir + '/output/'
+        debug_log_files_dump = self.rundir + '/debug/'
+        file_path = os.path.join(output_formal_file, formalTestFile)
+        print("[SPARC] : Formal synthesis directory : ",self.rundir)
         with open(file_path, "w") as file:
             """
             --> Write the header files from the source file to the test harness
@@ -36,7 +39,6 @@ class queueGenerator:
                 file.write("#define SINGLE_ENTRY_POINT 1\n")
                 file.write('\n')
                 file.write('using namespace std;\n')
-            
             """
             --> Auto generated entity and class and object instantiations based on SSEL-provided classes and constructs
             """

@@ -22,14 +22,14 @@ class sparcProcessConfiguration:
         dynamicobj = dynamicEndPointProcessing(self.orgSpecFile)
         dynamicobj.processDynamicTestHarness()
         dynamicobj.fileCleanUp()
-        consolemessage = "[SPARC] : Dynamic synthesis configuration of user-defined configuration file: " + str(self.orgSpecFile + " complete " + '\n')
+        consolemessage = "[SPARC] : Dynamic synthesis configuration of user-defined configuration file: '" + str(self.orgSpecFile + "' complete " + '\n')
         print(consolemessage)   
 
     def runFormalValidation(self):
         formalobj = endPointProcessing('spec4agent.cpp')
         formalobj.create_rundir()
         formalobj.processFormalTestHarness()
-        consolemessage = "[SPARC] : Formal synthesis configuration of user-defined " + str(self.orgSpecFile + " complete " + '\n')
+        consolemessage = "[SPARC] : Formal synthesis configuration of user-defined configuration file: '" + str(self.orgSpecFile + "' complete " + '\n')
         print(consolemessage)  
 
     def parseConfig(self):
