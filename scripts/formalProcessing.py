@@ -9,19 +9,42 @@ from regex_patterns import *
 from datetime import datetime
 
 class endPointProcessing:
-    def __init__(self, path, filename): 
-        self.path = path
+    def __init__(self, filename): 
+        # self.path = path
         self.filename = filename
         self.directory_name = ""
+        self.output_dir = ""
+        self.curdir = ""
+        self.currundir = ""
         self.whileMap = dict()
     
+    def get_current_time_and_date(self):
+        current_time = datetime.now().strftime("%H:%M:%S")
+        current_date = datetime.now().strftime("%Y-%m-%d")
+        return current_date, current_time
+       
+    def create_rundir(self):
+        self.get_current_time_and_date()
+        self.curdir = os.path.abspath(os.path.curdir)
+        currentDate, currentTime = self.get_current_time_and_date()
+        self.directory_name = "rundir-f:::" + currentDate + ":::" + currentTime
+        os.makedirs(self.directory_name, exist_ok=True)
+        self.currundir = self.curdir + '/'+ self.directory_name
+        self.output_dir = self.currundir + '/output'
+        os.makedirs(self.output_dir, exist_ok=True)
+        return self.curdir, self.currundir
+    
     def processFormalTestHarness(self):
-        formalTest = queueGenerator(self.path, self.filename)
+        curdir, currundir = self.create_rundir()
+        # print("[SPARC]: ", currundir, self.filename)
+        formalTest = queueGenerator(self.curdir, self.currundir, self.filename)
         formalTest.entityTemplateGenerator()
-        self.directory_name = formalTest.directory_name
-        workingPath = os.path.join(self.path, "formalSynthesisHarness.cpp")
-        filePath = os.path.join(self.directory_name, "klee_sim.cpp")
-        shutil.copy(filePath, workingPath)
+        # self.directory_name = formalTest.directory_name
+        # workingPath = os.path.join(self.path, "formalSynthesisHarness.cpp")
+        # filePath = os.path.join(self.directory_name, "klee_sim.cpp")
+        # shutil.copy(filePath, workingPath)
+
+
         # with open(workingPath, "w") as testFile:
         #     with open (filePath, "r") as file:
         #         f_contents = file.read()
@@ -37,9 +60,11 @@ class endPointProcessing:
         #                 print(f_contents)
                 # testFile.write(f_contents)
 
-def main():
-    obj = endPointProcessing('/Users/pathfinder/Work/Projects/SPARC/klee/examples/SPARC', 'test_pattern.cpp')
-    obj.processFormalTestHarness()
+# def main():
+#     # obj = endPointProcessing('/Users/pathfinder/Work/Projects/SPARC/klee/examples/SPARC', 'test_pattern.cpp')
+#     obj = endPointProcessing('spec4agent.cpp')
+#     obj.create_rundir()
+#     obj.processFormalTestHarness()
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

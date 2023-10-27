@@ -26,7 +26,7 @@ class dynamicEndPointProcessing:
         self.get_current_time_and_date()
         self.curdir = os.path.abspath(os.path.curdir)
         currentDate, currentTime = self.get_current_time_and_date()
-        self.directory_name = "rundir:::" + currentDate + ":::" + currentTime
+        self.directory_name = "rundir-d:::" + currentDate + ":::" + currentTime
         os.makedirs(self.directory_name, exist_ok=True)
         self.currundir = self.curdir + '/'+ self.directory_name
         self.output_dir = self.currundir + '/output'
@@ -35,7 +35,7 @@ class dynamicEndPointProcessing:
     
     def processDynamicTestHarness(self):
         curdir, currundir = self.create_rundir()
-        print("[SPARC]: ", currundir)
+        print("[SPARC] : Dynamic synthesis directory : ", currundir)
         dynamicTest = DynamicParser(curdir, currundir, self.filename)
         dynamicTest.parseFile()
 
@@ -59,10 +59,10 @@ class dynamicEndPointProcessing:
         else:
             pass 
 
-def main():
-    obj = dynamicEndPointProcessing('spec4agent.cpp')
-    obj.processDynamicTestHarness()
-    obj.fileCleanUp()
+# def main():
+#     obj = dynamicEndPointProcessing('spec4agent.cpp')
+#     obj.processDynamicTestHarness()
+#     obj.fileCleanUp()
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
