@@ -1,0 +1,5 @@
+{
+    "org_specification_file" : "spec4agent.cpp",
+    "dynamicValidation" : true,
+    "formalValidation" : true
+}
