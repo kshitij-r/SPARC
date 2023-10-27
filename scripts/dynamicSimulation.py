@@ -38,15 +38,27 @@ class dynamicEndPointProcessing:
         print("[SPARC] : Dynamic synthesis directory : ", currundir)
         dynamicTest = DynamicParser(curdir, currundir, self.filename)
         dynamicTest.parseFile()
+    
+    def generateMakefile(self):
+        makefile = "Makefile"
+        makefilePath = os.path.join(self.output_dir, makefile)
+        print(makefilePath)
+        with open(makefilePath, "w") as makefilehandle:
+            makefilehandle.write("# Dynamic synthesis of generated specification\n")
+            makefilehandle.write("dynamicvalidation: dynamicSynthesis.cpp\n")
+            makefilehandle.write('\t' + "g++ -std=c++14 -pthread dynamicSynthesis.cpp -o dynamicSynthesis && ./dynamicSynthesis\n")
+            makefilehandle.write("clean:\n")
+            makefilehandle.write('\t' + "rm -f dynamicSynthesis")
 
     def fileCleanUp(self):
+        self.generateMakefile()
         # copy the created dynamic synthesis file to the outputs directory inside rundir
-        workingPath = os.path.join(self.output_dir, "dynamicSimulation.cpp")
-        filePath = os.path.join(self.curdir, "dynamicSimulation.cpp")
+        workingPath = os.path.join(self.output_dir, "dynamicSynthesis.cpp")
+        filePath = os.path.join(self.curdir, "dynamicSynthesis.cpp")
         shutil.copy(filePath, workingPath)
 
         # delete the intermediate .txt and .cpp files
-        removeIntermediateFileMain = self.curdir + "/dynamicSimulation.cpp"
+        removeIntermediateFileMain = self.curdir + "/dynamicSynthesis.cpp"
         removeIntermediateFileIntermediate = self.curdir + "/dynamicSynthesisSource.cpp"
         os.remove(removeIntermediateFileMain)
         os.remove(removeIntermediateFileIntermediate)

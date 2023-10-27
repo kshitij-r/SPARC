@@ -1,0 +1,12 @@
+//atomic_init
+    reset_control->issueSysRST();
+    //atomic_end
+
+    //atomic_init
+    wait__(__event__resetRequest);
+    //atomic_end
+
+    //atomic_init
+    reset_control->issueGlbRST();
+    //__assertion__globalresetAssert = true;
+    //atomic_end

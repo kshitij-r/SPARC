@@ -12,7 +12,6 @@ class sparcProcessConfiguration:
         self.dynamicValidation = False
         self.formalValidation = False
     
-    
     def printToolInputs(self):
         print("[SPARC] : Tool flags provided by user: \n")
         for key, value in self.configFile.items():
