@@ -1,0 +1,107 @@
+{'crcDriver': ['void',
+               [],
+               '//atomic_init\n'
+               '    crc->waiton_Reset();\n'
+               '    //atomic_end\n'
+               '\n'
+               '    //atomic_init\n'
+               '    crc->crc_trigger();\n'
+               '    //atomic_end\n'
+               '\n'
+               '    //atomic_init\n'
+               '    crc->checksum_calc();\n'
+               '    //atomic_end',
+               'crcDriver_body.txt',
+               3,
+               ['atomicBlock_0_crcDriver.txt',
+                'atomicBlock_1_crcDriver.txt',
+                'atomicBlock_2_crcDriver.txt'],
+               3,
+               'crcDriver_process'],
+ 'resetDriver': ['void',
+                 [],
+                 '//atomic_init\n'
+                 '    reset_control->issueSysRST();\n'
+                 '    //atomic_end\n'
+                 '\n'
+                 '    //atomic_init\n'
+                 '    wait__(__event__resetRequest);\n'
+                 '    //atomic_end\n'
+                 '\n'
+                 '    //atomic_init\n'
+                 '    reset_control->issueGlbRST();\n'
+                 '    __assertion__globalresetAssert = true;\n'
+                 '    //atomic_end',
+                 'resetDriver_body.txt',
+                 1,
+                 ['atomicBlock_0_resetDriver.txt',
+                  'atomicBlock_1_resetDriver.txt',
+                  'atomicBlock_2_resetDriver.txt'],
+                 3,
+                 'resetDriver_process'],
+ 'swDriver': ['void',
+              [],
+              '//atomic_init\n'
+              '    software->waiton_Reset();\n'
+              '    //atomic_end\n'
+              '\n'
+              '    //atomic_init\n'
+              '    timer->duration.value = 3;\n'
+              '    timer->startTimer.value = 1;\n'
+              '    __event__timerSet = true;\n'
+              '    __assertion__timerTriggerassert = true;\n'
+              '    //atomic_end\n'
+              '    \n'
+              '    //atomic_init\n'
+              '    crc->crcTrigger.value = 1;\n'
+              '    __assertion__crcTriggerAssert = true;\n'
+              '    //atomic_end\n'
+              '\n'
+              '    //atomic_init\n'
+              '    while(!__event__timerfinish){\n'
+              '    software->swChecksum = crc->crcChecksum;\n'
+              '    software->validateChecksum();\n'
+              '    reset_control->req.value = 1;\n'
+              '    __event__resetRequest = true;\n'
+              '    __assertion__crcTriggerAssert = true;\n'
+              '    }   \n'
+              '    //atomic_end',
+              'swDriver_body.txt',
+              2,
+              ['atomicBlock_0_swDriver.txt',
+               'atomicBlock_1_swDriver.txt',
+               'atomicBlock_2_swDriver.txt',
+               'atomicBlock_3_swDriver.txt'],
+              4,
+              'swDriver_process'],
+ 'timerDriver': ['void',
+                 [],
+                 '//atomic_init\n'
+                 '    timer->waiton_Reset();\n'
+                 '    //atomic_end\n'
+                 '\n'
+                 '    //atomic_init\n'
+                 '    wait__(__event__timerSet);\n'
+                 '    //atomic_end\n'
+                 '\n'
+                 '    //atomic_init\n'
+                 '    timer->timer_start();\n'
+                 '    //atomic_end\n'
+                 '\n'
+                 '    //atomic_init\n'
+                 '    wait__(timer->timerDone.value);\n'
+                 '    //atomic_end\n'
+                 '\n'
+                 '    //atomic_init\n'
+                 '    software->timerEnd = timer->timerDone;\n'
+                 '    __event__timerfinish = true;\n'
+                 '    //atomic_end',
+                 'timerDriver_body.txt',
+                 4,
+                 ['atomicBlock_0_timerDriver.txt',
+                  'atomicBlock_1_timerDriver.txt',
+                  'atomicBlock_2_timerDriver.txt',
+                  'atomicBlock_3_timerDriver.txt',
+                  'atomicBlock_4_timerDriver.txt'],
+                 5,
+                 'timerDriver_process']}

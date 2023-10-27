@@ -55,7 +55,7 @@ class DynamicParser:
             self.mutexDict[key] = mutexName
             self.mutexList.append(mutexName)
             self.agentList.append(key)
-        dynamicTestFile = "dynamicSimulation.cpp"
+        dynamicTestFile = "dynamicSynthesis.cpp"
         file_path = os.path.join(self.rundir, dynamicTestFile)
         with open(file_path, "w") as resultFile:
             with open(self.filename) as file:

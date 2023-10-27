@@ -34,11 +34,23 @@ class endPointProcessing:
         os.makedirs(self.output_dir, exist_ok=True)
         return self.curdir, self.currundir
     
+    def generateMakefile(self):
+        makefile = "Makefile"
+        makefilePath = os.path.join(self.output_dir, makefile)
+        print(makefilePath)
+        with open(makefilePath, "w") as makefilehandle:
+            makefilehandle.write("# Formal synthesis of generated specification\n")
+            makefilehandle.write("formalvalidation: klee_sim.cpp\n")
+            makefilehandle.write('\t' + "clang -I ~/klee/include -emit-llvm -c -g klee_sim.cpp && klee --warnings-only-to-file klee_sim.bc\n")
+            makefilehandle.write("clean:\n")
+            makefilehandle.write('\t' + "rm -f *.bc")
+    
     def processFormalTestHarness(self):
         curdir, currundir = self.create_rundir()
         # print("[SPARC]: ", currundir, self.filename)
         formalTest = queueGenerator(self.curdir, self.currundir, self.filename)
         formalTest.entityTemplateGenerator()
+        self.generateMakefile()
         # self.directory_name = formalTest.directory_name
         # workingPath = os.path.join(self.path, "formalSynthesisHarness.cpp")
         # filePath = os.path.join(self.directory_name, "klee_sim.cpp")
