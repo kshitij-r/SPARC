@@ -52,6 +52,7 @@ void SOFTWARECONTROLLER::waiton_Reset(){
             resetAsserted_ = true;
             break;
         }
+        break;
     }
     // cout<<"Reset Asserted"<<endl;
 }
