@@ -50,12 +50,15 @@ void swDriver(){
     //atomic_end
 
     //atomic_init
-    while(!__event__timerfinish){
+    if(!__event__timerfinish){
     software->swChecksum = crc->crcChecksum;
     software->validateChecksum();
     reset_control->req.value = 1;
     __event__resetRequest = true;
     //__assertion__crcTriggerAssert = true;
+    }
+    else{
+        exit(0);
     }   
     //atomic_end
 }
