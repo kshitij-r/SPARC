@@ -9,7 +9,7 @@ from regex_patterns import *
 from datetime import datetime
 
 class endPointProcessing:
-    def __init__(self, filename): 
+    def __init__(self, filename, queueSize, z3): 
         # self.path = path
         self.filename = filename
         self.directory_name = ""
@@ -17,6 +17,8 @@ class endPointProcessing:
         self.curdir = ""
         self.currundir = ""
         self.whileMap = dict()
+        self.queueSize = queueSize
+        self.z3 = z3
     
     def get_current_time_and_date(self):
         current_time = datetime.now().strftime("%H:%M:%S")
@@ -40,14 +42,17 @@ class endPointProcessing:
         with open(makefilePath, "w") as makefilehandle:
             makefilehandle.write("# Formal synthesis of generated specification\n")
             makefilehandle.write("formalvalidation: clean klee_sim.cpp\n")
-            makefilehandle.write('\t' + "clang -I ~/klee/include -emit-llvm -c -g klee_sim.cpp && klee --warnings-only-to-file klee_sim.bc\n")
+            if self.z3:
+                makefilehandle.write('\t' + "clang -I ~/klee/include -emit-llvm -c -g klee_sim.cpp && klee -solver-backend=z3 --warnings-only-to-file klee_sim.bc\n")
+            else:
+                makefilehandle.write('\t' + "clang -I ~/klee/include -emit-llvm -c -g klee_sim.cpp && klee --warnings-only-to-file klee_sim.bc\n")
             makefilehandle.write("clean:\n")
             makefilehandle.write('\t' + "rm -f *.bc")
     
     def processFormalTestHarness(self):
         curdir, currundir = self.create_rundir()
         # print("[SPARC]: ", currundir, self.filename)
-        formalTest = queueGenerator(self.curdir, self.currundir, self.filename)
+        formalTest = queueGenerator(self.curdir, self.currundir, self.filename, self.queueSize)
         formalTest.entityTemplateGenerator()
         self.generateMakefile()
         # self.directory_name = formalTest.directory_name

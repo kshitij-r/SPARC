@@ -11,6 +11,8 @@ class sparcProcessConfiguration:
         self.configFile = {}
         self.dynamicValidation = False
         self.formalValidation = False
+        self.queueSize = 0
+        self.z3 = False
     
     def printToolInputs(self):
         print("[SPARC] : Tool flags provided by user: \n")
@@ -25,7 +27,7 @@ class sparcProcessConfiguration:
         print(consolemessage)   
 
     def runFormalValidation(self):
-        formalobj = endPointProcessing('spec4agent.cpp')
+        formalobj = endPointProcessing(self.orgSpecFile, self.queueSize, self.z3)
         formalobj.create_rundir()
         formalobj.processFormalTestHarness()
         consolemessage = "[SPARC] : Formal synthesis configuration of user-defined configuration file: '" + str(self.orgSpecFile + "' complete " + '\n')
@@ -43,6 +45,10 @@ class sparcProcessConfiguration:
                     self.dynamicValidation = value
                 if(key == "formalValidation"):
                     self.formalValidation = value
+                if(key == "queueSize"):
+                    self.queueSize = value
+                if(key == "z3Solver"):
+                    self.z3 = value
         except FileNotFoundError:
             print(self.curdir, self.filename)
             print('File not found')

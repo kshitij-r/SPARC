@@ -7,12 +7,13 @@ from regex_patterns import *
 from datetime import datetime
 
 class queueGenerator:
-    def __init__(self, curdir, rundir, filename): 
+    def __init__(self, curdir, rundir, filename, queueSize): 
         self.curdir = curdir
         self.rundir = rundir
         self.filename = filename
         self.initial_state_map = dict()
         self.directory_name = ""
+        self.queueSize = queueSize
     
     def entityTemplateGenerator(self):
         atomicParser = Parser(self.curdir, self.rundir, self.filename)
@@ -178,7 +179,7 @@ class queueGenerator:
             numberofAgents = len(atomicParser.functionTree)
             queueSizeMin = numberofAgents
             queueSizeMax = numberofAgents + 2
-            file.write("    klee_assume((schedular_queue_size>=" + str(queueSizeMin) + ") & (schedular_queue_size<" + str(queueSizeMax) + "));\n")  
+            file.write("    klee_assume((schedular_queue_size>=" + str(queueSizeMin) + ") & (schedular_queue_size<" + str(self.queueSize) + "));\n")  
             file.write("    queue<int> scheduler_queue;\n")
             
             file.write("    for(int i = 0; i<schedular_queue_size; i++){\n")

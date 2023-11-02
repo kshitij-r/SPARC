@@ -1,0 +1,20 @@
+//atomic_init
+    timer->waiton_Reset();
+    //atomic_end
+
+    //atomic_init
+    wait__(__event__timerSet);
+    //atomic_end
+
+    //atomic_init
+    timer->timer_start();
+    //atomic_end
+
+    //atomic_init
+    wait__(timer->timerDone.value);
+    //atomic_end
+
+    //atomic_init
+    software->timerEnd = timer->timerDone;
+    __event__timerfinish = true;
+    //atomic_end
