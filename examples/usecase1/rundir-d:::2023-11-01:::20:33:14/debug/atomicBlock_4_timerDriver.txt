@@ -1,0 +1,2 @@
+software->timerEnd = timer->timerDone;
+    __event__timerfinish = true;
