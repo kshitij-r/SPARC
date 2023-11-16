@@ -54,10 +54,9 @@ Once the system specification is complete, follow the below steps:
     python3 ../../scripts/sparcWrapper.py
     ```
 3. This will generate a new directory with intermediate logs and a final output with a makefile. The newly created directory structure is as follows:
-    ![Program Analysis Flow](Documentation/figures/rundir.png)
-<br>The output directory has the synthesized specification and a Makefile to run the specification. The structure of the output directory is as follows:
-<br>
 
+    ![Program Analysis Flow](Documentation/figures/rundir.png)
+The output directory has the synthesized specification and a Makefile to run the specification. The structure of the output directory is as follows:
     ![Program Analysis Flow](Documentation/figures/dyn-outputdir.png)
 4. To run the synthesized specification, cd into the output directory and run:
     ```C++
