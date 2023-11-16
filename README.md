@@ -56,9 +56,10 @@ Once the system specification is complete, follow the below steps:
 3. This will generate a new directory with intermediate logs and a final output with a makefile. The newly created directory structure is as follows:
 
     ![run directory structure](Documentation/figures/rundir.png)
-The output directory has the synthesized specification and a Makefile to run the specification. The structure of the output directory is as follows:
+4. The output directory has the synthesized specification and a Makefile to run the specification. The structure of the output directory is as follows:
     ![dynamic output directory structure](Documentation/figures/dyn-outputdir.png)
-4. To run the synthesized specification, cd into the output directory and run:
+
+5. To run the synthesized specification, cd into the output directory and run:
     ```C++
     make dynamicvalidation
     ``` 
