@@ -1,8 +1,0 @@
-worker1.detach();
-    worker2.detach();
-    worker3.detach();
-    worker4.detach();
-    
-        //--assert(!__assertion__globalresetAssert || (__assertion__globalresetAssert && __event__resetRequest));
-        //--assert(!__assertion__crcTriggerAssert || (__assertion__crcTriggerAssert && __assertion__timerTriggerassert));
-        return 0;

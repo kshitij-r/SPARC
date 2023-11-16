@@ -12,44 +12,66 @@ Each agent/entity can be derived from the **slave class [slaveconfig.cpp]**. Thi
 
 ### Requirements
 1. This version of SPARC requires C++17 or above to build.
-2. KLEE is required for formal analysis of specifications generated using SPARC. It can be downloaded by clicking [here](https://klee.github.io/). The Docker version of KLEE should be prefered.
+2. KLEE is required for formal analysis of specifications generated using SPARC. It can be downloaded by clicking [here](https://klee.github.io/).
+
 ### SPARC Setup Guide
 Once the KLEE setup has been completed, the following sequence of steps need to be followed: <br>
 1. Attach your shell to the KLEE Docker container. 
-2. Enter the following directory and make clone this repository.
+2. cd into the following path:
 ```C++
 cd /home/klee/klee_src/examples
 ``` 
 3. Clone the SPARC repository at this location.
+4. Create a new directory in the path /SPARC/examples/ and copy all the specification files and headers in this directory.
+5. Create a configuration file in the same directory called 'config.json'. More details on this configuration file is provided in the upcoming section.
+
+### SPARC Configuration File
+SPARC uses a configuration file for running synthesis and validation under various modes. As of November 11, 2023, SPARC supports the following configuration options:
+ - org_specification_file : name of the .cpp specification code
+ - dynamicValidation : boolean (true/false, runs specification validation in dynamic mode if true) 
+ - formalValidation : boolean (true/false, runs specification validation in formal mode if true) 
+ - queueSize : size of queue for formal validation mode (discarded if dynamicValidation = true)
+ - z3Solver :  boolean (true/false, uses z3 SMT solver for formal validation if true)
+
+An example of a configuration file (spec4agent.cpp) running in both dynamic and formal validation mode with a queue size of 8 using z3 SMT solver isprovided below:
+```JSON
+{
+    "org_specification_file" : "spec4agent.cpp",
+    "dynamicValidation" : true,
+    "formalValidation" : true,
+    "queueSize": 8,
+    "z3Solver" : true
+}
+``` 
+
 ### SPARC Synthesis Guide
 SPARC supports two modes of specification synthesis: (1) Dynamic synthesis, (2) Formal synthesis.
 #### Dynamic synthesis
 Once the system specification is complete, follow the below steps:
-1. To generate the synthesis harness using SPARC:
-```C++
-make dynamicHarness
-``` 
-This generates a test harness file (dynamicSimulation.cpp) in the working directory.
-
-2. To synthesize the generated test harness:
-```C++
-make synthesis_dynamic
-``` 
-
+1. Modify the configuration file as highlighted above.
+2. Run the following command to generate the test harness for SPARC:
+    ```Python
+    python3 ../../scripts/sparcWrapper.py
+    ```
+3. This will generate a new directory with intermediate logs and a final output with a makefile. The newly created directory structure is as follows:
+![Program Analysis Flow](Documentation/figures/rundir.png)
+The output directory has the synthesized specification and a Makefile to run the specification. The structure of the output directory is as follows:
+![Program Analysis Flow](Documentation/figures/dyn-outputdir.png)
+4. To run the synthesized specification, cd into the output directory and run:
+    ```C++
+    make dynamicvalidation
+    ``` 
 #### Formal synthesis
-SPARC uses a concurrent-tonon-concurrent program transformation to generate the test harness for formal analysis. The flow is shown in the figure below.
+SPARC uses a concurrent-to-non-concurrent program transformation to generate the test harness for formal analysis. The flow is shown in the figure below.
 ![Program Analysis Flow](Documentation/figures/TechCon%202023%20SSEL/harness.png)
 
 Once the system specification is complete, follow the below steps:
-1. To generate the synthesis harness using SPARC:
-```C++
-make formalHarness
-``` 
-This generates a test harness file (formalSynthesisHarness.cpp) in the working directory.
+1. Follow steps 1 and 2 fro the Dynamic synthesis section above. The output directory has the synthesized specification and a Makefile to run the specification. The structure of the output directory is as follows:
+![Program Analysis Flow](Documentation/figures/for-outputdir.png)
 
-2. To synthesize the generated test harness:
+2. To synthesize the generated test harness, cd into the output directory and run::
 ```C++
-make synthesis_formal
+make formalvalidation
 ``` 
 ### Agent Specification Template
 Agents in SPARC can be specified in isolation using the following template:
