@@ -56,8 +56,8 @@ Once the system specification is complete, follow the below steps:
 3. This will generate a new directory with intermediate logs and a final output with a makefile. The newly created directory structure is as follows:
 
     ![run directory structure](Documentation/figures/rundir.png)
-4. The output directory has the synthesized specification and a Makefile to run the specification. The structure of the output directory is as follows:
-    ![dynamic output directory structure](Documentation/figures/dyn-outputdir.png)
+4. The output directory has the synthesized specification and a Makefile to run the specification. The structure of the output directory is as follows: <br>
+        ![dynamic output directory structure](Documentation/figures/dyn-outputdir.png)
 
 5. To run the synthesized specification, cd into the output directory and run:
     ```C++
@@ -65,11 +65,11 @@ Once the system specification is complete, follow the below steps:
     ``` 
 
 #### Formal synthesis
-SPARC uses a concurrent-to-non-concurrent program transformation to generate the test harness for formal analysis. The flow is shown in the figure below.
+SPARC uses a concurrent-to-non-concurrent program transformation to generate the test harness for formal analysis. The flow is shown in the figure below. <br>
 ![Program Analysis Flow](Documentation/figures/TechCon%202023%20SSEL/harness.png)
 
 Once the system specification is complete, follow the below steps:
-1. Follow steps 1 and 2 fro the Dynamic synthesis section above. The output directory has the synthesized specification and a Makefile to run the specification. The structure of the output directory is as follows:
+1. Follow steps 1 and 2 fro the Dynamic synthesis section above. The output directory has the synthesized specification and a Makefile to run the specification. The structure of the output directory is as follows: <br>
 ![formal output directory structure](Documentation/figures/for-outputdir.png)
 
 2. To synthesize the generated test harness, cd into the output directory and run::
