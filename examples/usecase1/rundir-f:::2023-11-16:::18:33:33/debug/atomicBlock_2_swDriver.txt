@@ -1,0 +1,2 @@
+crc->crcTrigger.value = 1;
+    __assertion__crcTriggerAssert = true;

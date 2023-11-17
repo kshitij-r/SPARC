@@ -53,7 +53,7 @@ Once the system specification is complete, follow the below steps:
     ```Python
     python3 ../../scripts/sparcWrapper.py
     ```
-3. This will generate a new directory with intermediate logs and a final output with a makefile. The newly created directory structure is as follows:
+3. This will generate a new directory with intermediate logs and a final output with a makefile. The newly created directory structure is as follows: <br>
 
     ![run directory structure](Documentation/figures/rundir.png)
 4. The output directory has the synthesized specification and a Makefile to run the specification. The structure of the output directory is as follows: <br>
