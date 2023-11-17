@@ -33,7 +33,7 @@ SPARC uses a configuration file for running synthesis and validation under vario
  - queueSize : size of queue for formal validation mode (discarded if dynamicValidation = true)
  - z3Solver :  boolean (true/false, uses z3 SMT solver for formal validation if true)
 
-An example of a configuration file (spec4agent.cpp) running in both dynamic and formal validation mode with a queue size of 8 using z3 SMT solver isprovided below:
+An example of a configuration file (spec4agent.cpp) running in both dynamic and formal validation mode with a queue size of 8 using z3 SMT solver is provided below:
 ```JSON
 {
     "org_specification_file" : "spec4agent.cpp",
@@ -69,7 +69,7 @@ SPARC uses a concurrent-to-non-concurrent program transformation to generate the
 ![Program Analysis Flow](Documentation/figures/TechCon%202023%20SSEL/harness.png)
 
 Once the system specification is complete, follow the below steps:
-1. Follow steps 1 and 2 fro the Dynamic synthesis section above. The output directory has the synthesized specification and a Makefile to run the specification. The structure of the output directory is as follows: <br>
+1. Follow steps 1 and 2 from the Dynamic synthesis section above. The output directory has the synthesized specification and a Makefile to run the specification. The structure of the output directory is as follows: <br>
 ![formal output directory structure](Documentation/figures/for-outputdir.png)
 
 2. To synthesize the generated test harness, cd into the output directory and run::
