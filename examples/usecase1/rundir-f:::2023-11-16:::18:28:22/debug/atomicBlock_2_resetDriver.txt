@@ -1,0 +1,2 @@
+reset_control->issueGlbRST();
+    __assertion__globalresetAssert = true;
