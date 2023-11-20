@@ -40,6 +40,7 @@ void swDriver(){
     //atomic_init
     timer->duration.value = 3;
     timer->startTimer.value = 1;
+    
     __event__timerSet = true;
     //__assertion__timerTriggerassert = true;
     //atomic_end

@@ -5,9 +5,8 @@
 class RESET_CONTROLLER : public slaveIP{
 
     public:
-        // interfaceRegisters sysRST = {"sysRST","OUTPUT"};
         interfaceRegisters glbRST = {"glbRST","OUTPUT"};
-        interfaceRegisters req = {"req","INPUT",0};
+        interfaceRegisters req = {"req","INPUT"};
     public:
         void issueSysRST();
         void issueGlbRST();
