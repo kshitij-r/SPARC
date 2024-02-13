@@ -186,6 +186,7 @@ int main(){
     int rand_processID;
     klee_make_symbolic(&schedular_queue_size, sizeof(schedular_queue_size), "schedular_queue_size");
     klee_assume((schedular_queue_size>=4) & (schedular_queue_size<8));
+    
     queue<int> scheduler_queue;
     for(int i = 0; i<schedular_queue_size; i++){
         klee_make_symbolic(&rand_processID, sizeof(rand_processID), "rand_processID");
