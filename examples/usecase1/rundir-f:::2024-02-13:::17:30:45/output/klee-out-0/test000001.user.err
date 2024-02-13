@@ -1,0 +1,7 @@
+Error: invalid klee_assume call (provably false)
+File: klee_sim.cpp
+Line: 193
+assembly.ll line: 4322
+State: 1
+Stack: 
+	#000004322 in main() at klee_sim.cpp:193
