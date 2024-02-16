@@ -1,3 +1,0 @@
-KLEE: Using Z3 solver backend
-KLEE: ERROR: klee_sim.cpp:193: invalid klee_assume call (provably false)
-KLEE: NOTE: now ignoring this error at this location
