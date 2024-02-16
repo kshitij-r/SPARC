@@ -1,7 +1,0 @@
-array schedular_queue_size[4] : w32 -> w8 = symbolic
-(query [(Eq false
-             (Eq 0
-                 (And w32 (ZExt w32 (Sle 4
-                                         N0:(ReadLSB w32 0 schedular_queue_size)))
-                          (ZExt w32 (Slt N0 8)))))]
-        false)

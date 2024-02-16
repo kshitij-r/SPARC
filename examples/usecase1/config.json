@@ -2,6 +2,6 @@
     "org_specification_file" : "spec4agent.cpp",
     "dynamicValidation" : true,
     "formalValidation" : true,
-    "queueSize": 8,
+    "queueSize": 4,
     "z3Solver" : true
 }
