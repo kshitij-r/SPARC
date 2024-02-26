@@ -41,7 +41,7 @@ class endPointProcessing:
         makefilePath = os.path.join(self.output_dir, makefile)
         with open(makefilePath, "w") as makefilehandle:
             makefilehandle.write("# Formal synthesis of generated specification\n")
-            makefilehandle.write("formalvalidation: clean klee_sim.cpp\n")
+            makefilehandle.write("test: clean klee_sim.cpp\n")
             if self.z3:
                 makefilehandle.write('\t' + "clang -I ~/klee/include -emit-llvm -c -g klee_sim.cpp && klee -solver-backend=z3 --warnings-only-to-file klee_sim.bc\n")
             else:

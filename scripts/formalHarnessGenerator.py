@@ -178,14 +178,19 @@ class queueGenerator:
             #TODO Add limit message to formal validation scalability
             numberofAgents = len(atomicParser.functionTree)
             queueSizeMin = numberofAgents
-            queueSizeMax = numberofAgents + 2
-            file.write("    klee_assume((schedular_queue_size>=" + str(queueSizeMin) + ") & (schedular_queue_size<" + str(self.queueSize) + "));\n")  
+            if(numberofAgents<=3):
+                queueSizeMin = numberofAgents
+            else:
+                queueSizeMin = numberofAgents - 2
+            # queueSizeMax = numberofAgents + 2 # unused. Queue Max bound is now passed through a user-input using the configuration file
+            file.write("    klee_assume((schedular_queue_size>=" + str(queueSizeMin) + ") & (schedular_queue_size<=" + str(self.queueSize) + "));\n")  
             file.write("    queue<int> scheduler_queue;\n")
             
             file.write("    for(int i = 0; i<schedular_queue_size; i++){\n")
             file.write('        klee_make_symbolic(&rand_processID, sizeof(rand_processID), "rand_processID");\n')
-            rand_pID = random.randint(1,len(atomicParser.functionTree))
-            file.write("        klee_assume(rand_processID<" + str(rand_pID) + " & rand_processID>0);\n") 
+            # rand_pID = random.randint(1,len(atomicParser.functionTree))
+            pID_upperBound = len(atomicParser.functionTree) + 1
+            file.write("        klee_assume(rand_processID<" + str(pID_upperBound) + " & rand_processID>0);\n") 
             file.write("        scheduler_queue.push(rand_processID);\n")
             file.write("    }\n")
             file.write("\n")

@@ -44,7 +44,7 @@ class dynamicEndPointProcessing:
         makefilePath = os.path.join(self.output_dir, makefile)
         with open(makefilePath, "w") as makefilehandle:
             makefilehandle.write("# Dynamic synthesis of generated specification\n")
-            makefilehandle.write("dynamicvalidation: clean dynamicSynthesis.cpp\n")
+            makefilehandle.write("test: clean dynamicSynthesis.cpp\n")
             makefilehandle.write('\t' + "g++ -std=c++14 -pthread dynamicSynthesis.cpp -o dynamicSynthesis && ./dynamicSynthesis\n")
             makefilehandle.write("clean:\n")
             makefilehandle.write('\t' + "rm -f dynamicSynthesis")

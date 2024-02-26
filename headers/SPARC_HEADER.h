@@ -1,16 +1,16 @@
 #ifndef SPHEAD
 #define SPHEAD
-// #ifndef __clang__
+#ifndef __clang__
 #include <iostream>
-// #endif
 #include <thread>
+#include <chrono>
+#endif
 #include <stdlib.h>
 #include <cstdarg>
 #include <string>
 #include <assert.h>
 #include <algorithm>
 #include <iterator>
-#include <chrono>
 #include <queue>
 #include <set>
 #include <list>
