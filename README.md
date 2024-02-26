@@ -61,7 +61,7 @@ Once the system specification is complete, follow the below steps:
 
 5. To run the synthesized specification, cd into the output directory and run:
     ```C++
-    make dynamicvalidation
+    make test
     ``` 
 
 #### Formal synthesis
@@ -74,7 +74,7 @@ Once the system specification is complete, follow the below steps:
 
 2. To synthesize the generated test harness, cd into the output directory and run::
 ```C++
-make formalvalidation
+make test
 ``` 
 ### Agent Specification Template
 Agents in SPARC can be specified in isolation using the following template:
