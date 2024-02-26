@@ -190,7 +190,7 @@ class queueGenerator:
             file.write('        klee_make_symbolic(&rand_processID, sizeof(rand_processID), "rand_processID");\n')
             # rand_pID = random.randint(1,len(atomicParser.functionTree))
             pID_upperBound = len(atomicParser.functionTree) + 1
-            file.write("        klee_assume(rand_processID<" + str(pID_upperBound) + " & rand_processID>0);\n") 
+            file.write("        klee_assume(rand_processID<=" + str(pID_upperBound) + " & rand_processID>0);\n") 
             file.write("        scheduler_queue.push(rand_processID);\n")
             file.write("    }\n")
             file.write("\n")
