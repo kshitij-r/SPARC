@@ -1,5 +1,0 @@
-timer->duration.value = 3;
-    timer->startTimer.value = 1;
-    
-    __event__timerSet = true;
-    __assertion__timerTriggerassert = true;

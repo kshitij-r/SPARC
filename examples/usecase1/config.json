@@ -3,5 +3,6 @@
     "dynamicValidation" : true,
     "formalValidation" : true,
     "queueSize": 4,
-    "z3Solver" : true
+    "z3Solver" : true,
+    "interactingPattern" : "12"
 }
