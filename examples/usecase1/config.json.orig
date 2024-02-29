@@ -8,6 +8,11 @@
 =======
     "queueSize": 4,
     "z3Solver" : true,
+<<<<<<< HEAD
     "interactingPattern" : "12"
 >>>>>>> 0e581a15 (Added interactingPattern)
 }
+=======
+    "interactingPattern" : "13"
+}
+>>>>>>> 7bbaf140 (Exclude processes not in config from if else tree)

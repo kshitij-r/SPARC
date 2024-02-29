@@ -198,6 +198,30 @@ class queueGenerator:
                 file.write("    for(int i = 0; i<schedular_queue_size; i++)\n")
                 file.write("        scheduler_queue.push(interactingPattern[i]);\n")
                 file.write("\n");
+            
+                # Only include processes that are in the interacting pattern
+                uniqueProcesses = set(sorted(self.interactingPattern))
+
+                file.write("    while(!scheduler_queue.empty()){\n")
+                file.write("        process_ID = scheduler_queue.front();\n")
+                file.write("        scheduler_queue.pop();\n")
+                firstStatement = True # First statement uses if, the rest use else if
+                for processId in uniqueProcesses:
+                    for key in atomicParser.functionTree:
+                        if(atomicParser.functionTree[key][6] > 1 and atomicParser.functionTree[key][4] == processId):
+                            if firstStatement:
+                                file.write("        if(process_ID == " + str(atomicParser.functionTree[key][4]) + "){\n")
+                                firstStatement = False
+                            else:
+                                file.write("        else if(process_ID == " + str(atomicParser.functionTree[key][4]) + "){\n")
+                            file.write('            klee_make_symbolic(&' + self.initial_state_map[key] + ', sizeof(' + self.initial_state_map[key] + '), "' + self.initial_state_map[key] + '");\n')
+                            file.write('            if(' + self.initial_state_map[key] + ' == ' + str(random.randrange(1, atomicParser.functionTree[key][6])) + '){\n')
+                            file.write('                ' + key + '_queue.push(' + self.initial_state_map[key] + ');\n')
+                            file.write('                ' + atomicParser.functionTree[key][7] + '(' + key + '_queue);\n')
+                            file.write('             }\n')
+                            file.write('        }\n')
+                file.write('    }\n')
+
             else:
                 file.write("    int schedular_queue_size;\n")
                 file.write("    int rand_processID;\n")
@@ -221,24 +245,24 @@ class queueGenerator:
                 file.write("    }\n")
                 file.write("\n")
             
-            file.write("    while(!scheduler_queue.empty()){\n")
-            file.write("        process_ID = scheduler_queue.front();\n")
-            file.write("        scheduler_queue.pop();\n")
-            symbolic_loop_counter = 0
-            for key in atomicParser.functionTree:
-                if(atomicParser.functionTree[key][6] > 1):
-                    if(symbolic_loop_counter == 0):
-                        file.write("        if(process_ID == " + str(atomicParser.functionTree[key][4]) + "){\n")
-                        symbolic_loop_counter = symbolic_loop_counter + 1
-                    else:
-                        file.write("        else if(process_ID == " + str(atomicParser.functionTree[key][4]) + "){\n")
-                    file.write('            klee_make_symbolic(&' + self.initial_state_map[key] + ', sizeof(' + self.initial_state_map[key] + '), "' + self.initial_state_map[key] + '");\n')
-                    file.write('            if(' + self.initial_state_map[key] + ' == ' + str(random.randrange(1, atomicParser.functionTree[key][6])) + '){\n')
-                    file.write('                ' + key + '_queue.push(' + self.initial_state_map[key] + ');\n')
-                    file.write('                ' + atomicParser.functionTree[key][7] + '(' + key + '_queue);\n')
-                    file.write('             }\n')
-                    file.write('        }\n')
-            file.write('    }\n')
+                file.write("    while(!scheduler_queue.empty()){\n")
+                file.write("        process_ID = scheduler_queue.front();\n")
+                file.write("        scheduler_queue.pop();\n")
+                symbolic_loop_counter = 0
+                for key in atomicParser.functionTree:
+                    if(atomicParser.functionTree[key][6] > 1):
+                        if(symbolic_loop_counter == 0):
+                            file.write("        if(process_ID == " + str(atomicParser.functionTree[key][4]) + "){\n")
+                            symbolic_loop_counter = symbolic_loop_counter + 1
+                        else:
+                            file.write("        else if(process_ID == " + str(atomicParser.functionTree[key][4]) + "){\n")
+                        file.write('            klee_make_symbolic(&' + self.initial_state_map[key] + ', sizeof(' + self.initial_state_map[key] + '), "' + self.initial_state_map[key] + '");\n')
+                        file.write('            if(' + self.initial_state_map[key] + ' == ' + str(random.randrange(1, atomicParser.functionTree[key][6])) + '){\n')
+                        file.write('                ' + key + '_queue.push(' + self.initial_state_map[key] + ');\n')
+                        file.write('                ' + atomicParser.functionTree[key][7] + '(' + key + '_queue);\n')
+                        file.write('             }\n')
+                        file.write('        }\n')
+                file.write('    }\n')
             
             """
             --> Assertion placement in the test harness

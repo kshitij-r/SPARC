@@ -2,12 +2,7 @@
     "org_specification_file" : "spec4agent.cpp",
     "dynamicValidation" : true,
     "formalValidation" : true,
-<<<<<<< HEAD
-    "queueSize": 5,
-    "z3Solver" : true
-=======
     "queueSize": 4,
     "z3Solver" : true,
-    "interactingPattern" : "12"
->>>>>>> 0e581a15 (Added interactingPattern)
+    "interactingPattern" : "13"
 }
