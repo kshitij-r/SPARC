@@ -4,5 +4,5 @@
     "formalValidation" : true,
     "queueSize": 4,
     "z3Solver" : true,
-    "interactingPattern" : "12"
+    "interactingPattern" : "13"
 }
