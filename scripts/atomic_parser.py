@@ -224,6 +224,11 @@ class Parser:
     
     def trimfunctionTree(self):
         self.functionTree.pop("main")
+
+    def extractProcessAssertions(self):
+        for key, value in self.functionTree.items():
+            matches = re.findall('__assertion__\w+', value[2], re.MULTILINE)
+            self.functionTree[key].append(matches)
     
     def module_extractor(self):
         self.createWorkdir()
@@ -269,6 +274,7 @@ class Parser:
             self.extract_events(self.filename)
             self.extract_class_instance(self.filename)
             self.formalCommentStrip()
+            self.extractProcessAssertions()
         
         except FileNotFoundError:
             print(self.path, self.filename)
