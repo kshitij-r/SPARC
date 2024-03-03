@@ -182,9 +182,9 @@ class queueGenerator:
             numberofAgents = len(atomicParser.functionTree)
             # If interacting pattern is specified, the populate the queue with the interacting pattern
             # else, populate the queue with random process IDs
+            uniqueProcesses = []
             if (len(self.interactingPattern) > 0):
                 print("Interacting pattern is specified")
-                print("Number of agents: ", numberofAgents)
                 self.validateInteractingPattern(self.interactingPattern, numberofAgents)
                 queueSize = len(self.interactingPattern)
                 file.write("    int interactingPattern[" + str(queueSize) + "] = {")
@@ -267,11 +267,19 @@ class queueGenerator:
             """
             --> Assertion placement in the test harness
             """
-            file.write("/*\n")
-            file.write("--> Assertions\n")
-            file.write("*/\n")
-            for value in atomicParser.assertionList:
-                file.write(' ' + str(value) + '\n')
+            # If interacting pattern is specified, only include processes that are in the interacting pattern
+            if len(uniqueProcesses) > 0:
+                relevant_assertions = []
+                for key in atomicParser.functionTree:
+                    if(atomicParser.functionTree[key][4] in uniqueProcesses):
+                        relevant_assertions.extend(atomicParser.functionTree[key][8])
+                for value in atomicParser.assertionList:
+                    matches = re.findall('__assertion__\w+', value)
+                    if (all(assertion in relevant_assertions for assertion in matches)):
+                        file.write(' ' + str(value) + '\n')
+            else:
+                for value in atomicParser.assertionList:
+                    file.write(' ' + str(value) + '\n')
             file.write('  return 0;\n')
             file.write('}')
             file.close()
