@@ -2,6 +2,7 @@
 #define SSEL
 
 #include "map_header.h"
+#include <iostream>
 #ifndef __clang__
 #include <thread>
 #include <iostream>

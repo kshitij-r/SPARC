@@ -27,7 +27,6 @@ class INTERFACES : public system_memory_map {
                 bool commitLocalMap;
                 array<int, PATHSOURCESIZE> pathSource;
             };
-
         system_memory_map* localMap = new system_memory_map();
         void displayInterfaceRegister(interfaceRegisters *regName);
         int queryInterfaceRegisters(interfaceRegisters *regName);
