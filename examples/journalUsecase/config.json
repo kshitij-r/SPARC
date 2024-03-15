@@ -1,0 +1,7 @@
+{
+    "org_specification_file" : "spec11agent.cpp",
+    "dynamicValidation" : true,
+    "formalValidation" : true,
+    "queueSize": 5,
+    "z3Solver" : true
+}
