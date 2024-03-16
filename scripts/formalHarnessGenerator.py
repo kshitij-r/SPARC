@@ -7,13 +7,20 @@ from regex_patterns import *
 from datetime import datetime
 
 class queueGenerator:
-    def __init__(self, curdir, rundir, filename, queueSize): 
+    def __init__(self, curdir, rundir, filename, queueSize, interactingPattern): 
         self.curdir = curdir
         self.rundir = rundir
         self.filename = filename
         self.initial_state_map = dict()
         self.directory_name = ""
         self.queueSize = queueSize
+        self.interactingPattern = interactingPattern
+
+    def validateInteractingPattern(self, interactingPattern, numberofAgents):
+        for index in range(len(interactingPattern)):
+            if interactingPattern[index] > numberofAgents:
+                print("[SPARC] : Invalid input in interacting pattern:", interactingPattern[index])
+                exit(0)
     
     def entityTemplateGenerator(self):
         atomicParser = Parser(self.curdir, self.rundir, self.filename)
@@ -169,31 +176,50 @@ class queueGenerator:
             file.write("/*\n")
             file.write("--> Symbolic execution test platform\n")
             file.write("*/\n")
-            file.write("    int schedular_queue_size;\n")
-            file.write("    int rand_processID;\n")
-            file.write('    klee_make_symbolic(&schedular_queue_size, sizeof(schedular_queue_size), "schedular_queue_size");\n')
-            
             # calculate the size of queue based on number of agents (HW or SW) in the specification
             # queue size is number of agents + 2
             #TODO Add limit message to formal validation scalability
             numberofAgents = len(atomicParser.functionTree)
-            queueSizeMin = numberofAgents
-            if(numberofAgents<=3):
-                queueSizeMin = numberofAgents
+            # If interacting pattern is specified, the populate the queue with the interacting pattern
+            # else, populate the queue with random process IDs
+            if (len(self.interactingPattern) > 0):
+                print("Interacting pattern is specified")
+                print("Number of agents: ", numberofAgents)
+                self.validateInteractingPattern(self.interactingPattern, numberofAgents)
+                queueSize = len(self.interactingPattern)
+                file.write("    int interactingPattern[" + str(queueSize) + "] = {")
+                for index in range(len(self.interactingPattern)):
+                    file.write(str(self.interactingPattern[index]))
+                    if(index != len(self.interactingPattern) - 1):
+                        file.write(", ")
+                file.write("};\n")
+                file.write("    int schedular_queue_size = " + str(queueSize) + ";\n")
+                file.write("    queue<int> scheduler_queue;\n")
+                file.write("    for(int i = 0; i<schedular_queue_size; i++)\n")
+                file.write("        scheduler_queue.push(interactingPattern[i]);\n")
+                file.write("\n");
             else:
-                queueSizeMin = numberofAgents - 2
-            # queueSizeMax = numberofAgents + 2 # unused. Queue Max bound is now passed through a user-input using the configuration file
-            file.write("    klee_assume((schedular_queue_size>=" + str(queueSizeMin) + ") & (schedular_queue_size<=" + str(self.queueSize) + "));\n")  
-            file.write("    queue<int> scheduler_queue;\n")
-            
-            file.write("    for(int i = 0; i<schedular_queue_size; i++){\n")
-            file.write('        klee_make_symbolic(&rand_processID, sizeof(rand_processID), "rand_processID");\n')
-            # rand_pID = random.randint(1,len(atomicParser.functionTree))
-            pID_upperBound = len(atomicParser.functionTree) + 1
-            file.write("        klee_assume(rand_processID<=" + str(pID_upperBound) + " & rand_processID>0);\n") 
-            file.write("        scheduler_queue.push(rand_processID);\n")
-            file.write("    }\n")
-            file.write("\n")
+                file.write("    int schedular_queue_size;\n")
+                file.write("    int rand_processID;\n")
+                file.write('    klee_make_symbolic(&schedular_queue_size, sizeof(schedular_queue_size), "schedular_queue_size");\n')
+                
+                queueSizeMin = numberofAgents
+                if(numberofAgents<=3):
+                    queueSizeMin = numberofAgents
+                else:
+                    queueSizeMin = numberofAgents - 2
+                # queueSizeMax = numberofAgents + 2 # unused. Queue Max bound is now passed through a user-input using the configuration file
+                file.write("    klee_assume((schedular_queue_size>=" + str(queueSizeMin) + ") & (schedular_queue_size<=" + str(self.queueSize) + "));\n")  
+                file.write("    queue<int> scheduler_queue;\n")
+                
+                file.write("    for(int i = 0; i<schedular_queue_size; i++){\n")
+                file.write('        klee_make_symbolic(&rand_processID, sizeof(rand_processID), "rand_processID");\n')
+                # rand_pID = random.randint(1,len(atomicParser.functionTree))
+                pID_upperBound = len(atomicParser.functionTree) + 1
+                file.write("        klee_assume(rand_processID<=" + str(pID_upperBound) + " & rand_processID>0);\n") 
+                file.write("        scheduler_queue.push(rand_processID);\n")
+                file.write("    }\n")
+                file.write("\n")
             
             file.write("    while(!scheduler_queue.empty()){\n")
             file.write("        process_ID = scheduler_queue.front();\n")

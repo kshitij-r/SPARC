@@ -9,7 +9,7 @@ from regex_patterns import *
 from datetime import datetime
 
 class endPointProcessing:
-    def __init__(self, filename, queueSize, z3): 
+    def __init__(self, filename, queueSize, z3, interactingPattern): 
         # self.path = path
         self.filename = filename
         self.directory_name = ""
@@ -19,6 +19,7 @@ class endPointProcessing:
         self.whileMap = dict()
         self.queueSize = queueSize
         self.z3 = z3
+        self.interactingPattern = interactingPattern
     
     def get_current_time_and_date(self):
         current_time = datetime.now().strftime("%H:%M:%S")
@@ -52,7 +53,7 @@ class endPointProcessing:
     def processFormalTestHarness(self):
         curdir, currundir = self.create_rundir()
         # print("[SPARC]: ", currundir, self.filename)
-        formalTest = queueGenerator(self.curdir, self.currundir, self.filename, self.queueSize)
+        formalTest = queueGenerator(self.curdir, self.currundir, self.filename, self.queueSize, self.interactingPattern)
         formalTest.entityTemplateGenerator()
         self.generateMakefile()
         # self.directory_name = formalTest.directory_name
