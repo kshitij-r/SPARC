@@ -10,6 +10,7 @@ class DC_MOTOR : public slaveIP{
         interfaceRegisters getDCsupply    = {"getDCsupply","INPUT"};
         interfaceRegisters startMotor     = {"startMotor","INPUT"};
         interfaceRegisters stopMotor      = {"stopMotor","INPUT"};
+        interfaceRegisters motorRunning   = {"motorRunning","OUTPUT"};
         interfaceRegisters motorRPM       = {"motorRPM","OUTPUT"};
         interfaceRegisters motorTemp      = {"motorTemp","OUTPUT"};
     private:
@@ -36,6 +37,7 @@ void DC_MOTOR::powerONDCmotor(){
 void DC_MOTOR::spinmotor(){
     if((powerSupply_) && (startMotor.value == 1) && (stopMotor.value != 1)){
         motorRunning_ = true;
+        motorRunning.value = 1;
         cout << "Motor running.."<<endl;
     }
     while((motorRunning_ == 1) && (stopMotor.value != 1)){
@@ -79,26 +81,32 @@ void DC_MOTOR::reportmotorRPM(){
 }
 
 void DC_MOTOR::reportmotorTemp(){
-    motorTemp.value = motorTemp_;
+    if(motorRunning_){
+        motorTemp.value = motorTemp_;
+    }
+    else{
+        motorTemp.value = 0;
+    }
+    
 }
 
-int main(){
-    DC_MOTOR* dc_motor_inst = new DC_MOTOR;
+// int main(){
+//     DC_MOTOR* dc_motor_inst = new DC_MOTOR;
 
-    // Supply DC power
-    dc_motor_inst->getDCsupply.value = 1;
-    dc_motor_inst->powerONDCmotor();
+//     // Supply DC power
+//     dc_motor_inst->getDCsupply.value = 1;
+//     dc_motor_inst->powerONDCmotor();
 
-    // Spin DC motor
-    dc_motor_inst->startMotor.value = 1;
-    dc_motor_inst->spinmotor();
+//     // Spin DC motor
+//     dc_motor_inst->startMotor.value = 1;
+//     dc_motor_inst->spinmotor();
 
-    for(int i = 0;i<5;i++){}
+//     for(int i = 0;i<5;i++){}
 
-    // Stop DC motor
-    dc_motor_inst->stopMotor.value = 1;
-    dc_motor_inst->stopmotor();
+//     // Stop DC motor
+//     dc_motor_inst->stopMotor.value = 1;
+//     dc_motor_inst->stopmotor();
 
 
-    return 0;
-}
+//     return 0;
+// }
