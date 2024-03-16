@@ -10,53 +10,95 @@ class DC_MOTOR : public slaveIP{
         interfaceRegisters getDCsupply    = {"getDCsupply","INPUT"};
         interfaceRegisters startMotor     = {"startMotor","INPUT"};
         interfaceRegisters stopMotor      = {"stopMotor","INPUT"};
-        interfaceRegisters motorRunning   = {"motorRunning","OUTPUT"};
         interfaceRegisters motorRPM       = {"motorRPM","OUTPUT"};
+        interfaceRegisters motorTemp      = {"motorTemp","OUTPUT"};
     private:
-        int motorSpeed_ = 0;
-        bool motorOn_ = false;
+        int  motorSpeed_ = 0;
+        int  motorTemp_ = 0;
+        bool motorRunning_ = false;
+        bool powerSupply_ = false;
     public:
-        void powerONDCmotor(const int& value);
+        void powerONDCmotor();
         void spinmotor();
         void stopmotor();
         void reportmotorRPM();
+        void reportmotorTemp();
 }; 
 #endif
 
-void DC_MOTOR::powerONDCmotor(const int& value){
-    if(value == 1) {
-        motorRunning.value = 0;
-        motorSpeed_ = 0;
-        motorOn_ = true;
-    }   
-
-}
-void DC_MOTOR::spinmotor(){
-    if((motorOn_) && (startMotor.value == 1)){
-        motorRunning.value = 1;
+void DC_MOTOR::powerONDCmotor(){
+    if(getDCsupply.value == 1){
+        powerSupply_ = true;
+        cout << "Motor power on.."<<endl;
     }
-    while(motorRunning.value == 1){
-        motorSpeed_++;
+}
+
+void DC_MOTOR::spinmotor(){
+    if((powerSupply_) && (startMotor.value == 1) && (stopMotor.value != 1)){
+        motorRunning_ = true;
+        cout << "Motor running.."<<endl;
+    }
+    while((motorRunning_ == 1) && (stopMotor.value != 1)){
+        motorSpeed_ = motorSpeed_ + 1;
+        motorTemp_ = motorTemp_ + 2;
+        motorTemp.value = motorTemp_;
         motorRPM.value = motorSpeed_;
-        if(motorSpeed_++ > 2000){
+        cout << "Motor running speed -  "<< motorRPM.value<<endl;
+        cout << "Motor running temp -  "<< motorTemp.value<<endl;
+        if(motorSpeed_ > 100){
+            cout << "Motor overspeed -  "<< motorRPM.value<<" motor shutting off..."<<endl;
+            break;
+        }
+        if(motorTemp_ > 200){
+            cout << "Motor overheat -  "<< motorTemp.value<<" motor shutting off..."<<endl;
             break;
         }
     }
-
 }
 
 void DC_MOTOR::stopmotor(){
-    if((motorRunning.value == 1) && (stopMotor.value == 1) && (motorOn_)){
-        motorOn_ = false;
-        motorRunning.value = 0;
+    if((stopMotor.value == 1) && (motorRunning_)){
+        motorRunning_ = false;
+        cout << "Motor stopping.."<<endl;
         motorSpeed_ = 0;
+        while(motorTemp_>10){
+            motorTemp_ = motorTemp_ - 10;
+            // cout << "Motor stopping temp -  "<< motorTemp.value<<endl;
+        }
+        motorTemp.value = motorTemp_;
     }
-    else{}
 }
 
 void DC_MOTOR::reportmotorRPM(){
-    if(motorRunning.value == 1){
+    if(motorRunning_){
         motorRPM.value = motorSpeed_;
     }
-    else{}
+    else{
+        motorRPM.value = 0;
+    }
+}
+
+void DC_MOTOR::reportmotorTemp(){
+    motorTemp.value = motorTemp_;
+}
+
+int main(){
+    DC_MOTOR* dc_motor_inst = new DC_MOTOR;
+
+    // Supply DC power
+    dc_motor_inst->getDCsupply.value = 1;
+    dc_motor_inst->powerONDCmotor();
+
+    // Spin DC motor
+    dc_motor_inst->startMotor.value = 1;
+    dc_motor_inst->spinmotor();
+
+    for(int i = 0;i<5;i++){}
+
+    // Stop DC motor
+    dc_motor_inst->stopMotor.value = 1;
+    dc_motor_inst->stopmotor();
+
+
+    return 0;
 }

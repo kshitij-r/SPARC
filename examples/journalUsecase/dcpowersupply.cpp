@@ -7,12 +7,14 @@ using namespace std;
 class DC_SUPPLY : public slaveIP{
 
     public:     
-        interfaceRegisters supplyDC = {"supplyDC","OUTPUT"};
+        interfaceRegisters supplyDCtoMotor = {"supplyDCtoMotor","OUTPUT"};
+        interfaceRegisters supplyDCtoInterface = {"supplyDCtoInterface","OUTPUT"};
     public:
         void supplyDCpower();
 }; 
 
 void DC_SUPPLY::supplyDCpower(){
-    supplyDC.value = 1;
+    supplyDCtoMotor.value = 1;
+    supplyDCtoInterface.value = 1;
 }
 #endif

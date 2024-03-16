@@ -4,29 +4,43 @@
 
 using namespace std;
 
-class DC_MOTOR : public slaveIP{
+class TEMP_MONITOR : public slaveIP{
 
     public:     
         interfaceRegisters motorTemp      = {"motorTemp","INPUT"};
         interfaceRegisters thresholdTemp  = {"thresholdTemp","INPUT"};
-        interfaceRegisters overHeat       = {"overHeat","OUTPUT"};
+        interfaceRegisters tempStatusReq  = {"tempStatusReq","INPUT"};
+        interfaceRegisters tempStatus     = {"tempStatus","OUTPUT"};
     
     private:
-        int motortemp_;
+        int motortemp_ = 0;
+        int threshold_ = 0;
+        int overheat_  = 0;
 
     public:
-        void getMotorTemp(const int& value);
+        void getThresholdTemp();
+        void getMotorTemp();
         void reportTempStatus();
 }; 
 #endif
 
-void DC_MOTOR::getMotorTemp(const int& value){
-    motortemp_ = value;
-    motorTemp.value = motortemp_;
+void TEMP_MONITOR::getThresholdTemp(){
+    threshold_ = thresholdTemp.value;
 }
 
-void DC_MOTOR::reportTempStatus(){
-    if(motorTemp.value>thresholdTemp.value){
-        overHeat.value = 1;
+void TEMP_MONITOR::getMotorTemp(){
+    motortemp_ = motorTemp.value;
+}
+
+void TEMP_MONITOR::reportTempStatus(){
+    if(tempStatusReq.value){
+        if(motortemp_>threshold_){
+            overheat_ = 1;
+            tempStatus.value = 1;
+        }
+        else{
+            overheat_ = 0;
+            tempStatus.value = 0;
+        }
     }
 }
