@@ -1,5 +1,5 @@
-#ifndef RPMSEN
-#define RPMSEN
+#ifndef RPMMON
+#define RPMMON
 #include "../../headers/SSEL_HEADER.h"
 
 using namespace std;
