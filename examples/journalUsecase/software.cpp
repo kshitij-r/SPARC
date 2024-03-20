@@ -1,21 +1,18 @@
 #ifndef SW
 #define SW
-#include "../../headers/SSEL_HEADER.h"
+#include "../../headers/SPARC_JOURNAL.h"
 
 using namespace std;
 
 class SW_CONTROLLER : public slaveIP{
     
     public:     
-        interfaceRegisters userInput      = {"userInput","INPUT"};
-        interfaceRegisters driveMotor     = {"driveMotor","OUTPUT"};
-        interfaceRegisters pauseMotor     = {"pauseMotor","OUTPUT"};
+        interfaceRegisters userInput      = {"userInput","INPUT"};    // 1 start, 0 stop
         interfaceRegisters RPMthreshold   = {"RPMthreshold","OUTPUT"};
         interfaceRegisters tempthreshold  = {"tempthreshold","OUTPUT"};
-        interfaceRegisters monTempreq     = {"monTempreq","OUTPUT"};
-        interfaceRegisters monRPMreq      = {"monRPMreq","OUTPUT"};
-        interfaceRegisters monTempval     = {"monTempval","INPUT"};
-        interfaceRegisters monRPMval      = {"monRPMval","INPUT"};
+        interfaceRegisters driveMotor     = {"driveMotor","OUTPUT"};
+        interfaceRegisters tempStatus     = {"tempStatus","INPUT"};
+        interfaceRegisters rpmStatus      = {"rpmStatus","INPUT"};
    
     private:
         int  motorRPM_ = 0;
@@ -27,66 +24,64 @@ class SW_CONTROLLER : public slaveIP{
     
     public:
         void takeUserinput();
-        void setThreshold();
-        void stopMotorRunning();
+        void setRPMThreshold();
+        void setTempThreshold();
+        bool stopMotorRunning();
         void startMotor();
-        void getMotorRPM();
-        void getMotorTemp();
         void checkTempStatus();
         void checkRPMStatus();
 }; 
 #endif
 
 void SW_CONTROLLER::takeUserinput(){
-    if(userInput.value == 1){
-        userInputVal_ = true;
-    }
-    else{
-        userInputVal_ = false;
+    while(true){
+        if(userInput.value == 1){
+            userInputVal_ = true;
+            break;
+        }
+        else{
+            userInputVal_ = false;
+            break;
+        }
     }
 }
-void SW_CONTROLLER::setThreshold(){
+
+void SW_CONTROLLER::setRPMThreshold(){
     if(userInputVal_){
         RPMthreshold.value = RPMthreshold_;
+    }
+}
+
+void SW_CONTROLLER::setTempThreshold(){
+    if(userInputVal_){
         tempthreshold.value = tempthreshold_;
     }
 }
+
 void SW_CONTROLLER::startMotor(){
     if(userInputVal_){
         driveMotor.value = 1;
         motorRunning_ = true;
     }
 }
-void SW_CONTROLLER::stopMotorRunning(){
+
+bool SW_CONTROLLER::stopMotorRunning(){
     if(userInputVal_){
-        pauseMotor.value = 1;
+        driveMotor.value = 0;
         motorRunning_ = false;
+        return true;
     }
-}
-void SW_CONTROLLER::getMotorRPM(){
-    while(motorRunning_){
-        monRPMreq.value = 1;
-        motorRPM_ = monRPMval.value;
-    }
-}
-void SW_CONTROLLER::getMotorTemp(){
-        monTempreq.value = 1;
-        motorTemp_ = monTempval.value;
+    return false;
 }
 
 void SW_CONTROLLER::checkTempStatus(){
-    if(motorTemp_>tempthreshold_){
+    if(tempStatus.value == 1){
         stopMotorRunning();
     }
 }
+
 void SW_CONTROLLER::checkRPMStatus(){
-    if(motorRPM_>RPMthreshold_){
+    if(rpmStatus.value == 1){
         stopMotorRunning();
     }
 }
-
-// int main(){
-//     SW_CONTROLLER* sw_inst = new SW_CONTROLLER;
-
-//     return 0;
-// }
