@@ -9,6 +9,7 @@ threat__start_pat = r'.*?\bthread\b.*?\n'
 threat__end_pat = r'.*?\bjoin\(\).*?\n'
 entity_identification_pat = r'(\w+)\* (\w+) = new (\w+);'
 assertion_pat = r'^\s*\/\/\s*--(.*)'
+assertion_pat_dyn = r'^\s*assert.*$'
 event_pat = r'\b(?:bool|int)\s*__event__.*'
 assert_variable = r'\b(?:bool|int)\s*__assertion__.*'
 # formalcommentstrip = r'(^\s*\/\/__assertion__(.*))';

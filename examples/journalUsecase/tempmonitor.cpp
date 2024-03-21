@@ -58,10 +58,10 @@ void TEMP_MONITOR::checkTempStatus(){
 }
 
 void TEMP_MONITOR::reportTempStatus(){
-    if(overheat_){
-        tempStatus.value = 1;
-    }
-    else{
-        tempStatus.value = 0;
-    }
+    // if(overheat_){
+    //     tempStatus.value = 1;
+    // }
+    // else{
+    //     tempStatus.value = 0;
+    // }
 }

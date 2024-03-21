@@ -5,6 +5,7 @@ import pprint
 from atomic_parser import *
 from regex_patterns import *
 from datetime import datetime
+# from reconfigureMain import *
 
 class DynamicParser:
     def __init__(self, rundir, curdir, filename): 
@@ -50,11 +51,11 @@ class DynamicParser:
         atomicParser = Parser(self.rundir, self.curdir, self.filename)
         atomicParser.module_extractor()
         atomicParser.displayFunctionTree()
-        for key in atomicParser.functionTree:
-            mutexName = key + "_lock"
-            self.mutexDict[key] = mutexName
-            self.mutexList.append(mutexName)
-            self.agentList.append(key)
+        # for key in atomicParser.functionTree:
+        #     mutexName = key + "_lock"
+        #     self.mutexDict[key] = mutexName
+        #     self.mutexList.append(mutexName)
+        #     self.agentList.append(key)
         dynamicTestFile = "dynamicSynthesis.cpp"
         file_path = os.path.join(self.rundir, dynamicTestFile)
         with open(file_path, "w") as resultFile:
@@ -62,18 +63,20 @@ class DynamicParser:
                 f_contents = file.readlines()
                 i = 0
                 for line in f_contents:
-                    if "../../../../headers/SPARC_HEADER.h" in line:
-                        # Mutex instantiation for all agents in the specification
-                        for item in self.mutexList:
-                            line = line + "mutex " + item + ';' + '\n'
+                    # if "../../../../headers/SPARC_JOURNAL.h" in line:
+                    #     # Mutex instantiation for all agents in the specification
+                    #     for item in self.mutexList:
+                    #         line = line + "mutex " + item + ';' + '\n'
                     for index, value in enumerate(self.agentList):
                         value = value + "(){"
                         if value in line:
                             currentPointer = index
                     if "//atomic_init" in line:
-                        line = '\n'  + "    "  + self.mutexList[currentPointer] + ".lock();" + '\n'
+                        line = ""
+                        # line = '\n'  + "    "  + self.mutexList[currentPointer] + ".lock();" + '\n'
                     if "//atomic_end" in line:
-                        line = "    "  + self.mutexList[currentPointer] + ".unlock();" + '\n'
+                        line = ""
+                        # line = "    "  + self.mutexList[currentPointer] + ".unlock();" + '\n'
                         
                     # replace wait contruct with while statement in the source file
                     if(re.search(wait_pat, line)):
@@ -90,7 +93,6 @@ class DynamicParser:
                     
                     # write updated lines to a new dynamic synthesis file
                     resultFile.write(line)
-                    
                     # resultFile.close()
                     
                     

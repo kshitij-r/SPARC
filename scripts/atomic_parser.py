@@ -261,7 +261,7 @@ class Parser:
                 self.extract_snippets(key, self.functionTree[key][3])
             self.extractandParseWaitStatements(self.filename)
             self.writeWaittoWhileinFile()
-            self.extract_assertion(self.filename)
+            # self.extract_assertion(self.filename)
             self.trimfunctionTree()
             self.generateFormalEntityName()
             self.extract_headers()

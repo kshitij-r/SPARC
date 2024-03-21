@@ -17,13 +17,12 @@ class USER_INPUT : public slaveIP{
 void USER_INPUT::commandToInterface(){
     seed = seed + 1;
     // klee_make_symbolic(&inputToInterface.value, sizeof(inputToInterface.value), "inputToInterface.value");
-    // klee_assume(inputToInterface.value == 1);
-    if(seed%4 == 0){
-        inputToInterface.value = 0;
-    }
-    else {
-        inputToInterface.value = 1;
-    }
-    // inputToInterface.value = 1;
+    // if(seed%4 == 0){
+    //     inputToInterface.value = 0;
+    // }
+    // else {
+    //     inputToInterface.value = 1;
+    // }
+    inputToInterface.value = 1;
 }
 #endif

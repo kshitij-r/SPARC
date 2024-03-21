@@ -23,9 +23,11 @@ class sparcProcessConfiguration:
         dynamicobj = dynamicEndPointProcessing(self.orgSpecFile)
         dynamicobj.processDynamicTestHarness()
         dynamicobj.fileCleanUp()
+        dynamicobj.cleanMain()
         consolemessage = "[SPARC] : Dynamic synthesis configuration of user-defined configuration file: '" + str(self.orgSpecFile + "' complete " + '\n')
-        print(consolemessage)   
-
+        print(consolemessage) 
+        dynamicobj.createInterleavingRuns();
+    
     def runFormalValidation(self):
         formalobj = endPointProcessing(self.orgSpecFile, self.queueSize, self.z3)
         formalobj.create_rundir()

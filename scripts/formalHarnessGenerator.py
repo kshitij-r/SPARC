@@ -48,6 +48,7 @@ class queueGenerator:
             file.write("--> Entity class object instantiation\n")
             file.write("*/\n")
             for key, value in atomicParser.class_definition.items():
+                print("here", key, value)
                 file.write(value + "* " + key + " = " + "new " + value + ";\n")
             file.write('\n')
             

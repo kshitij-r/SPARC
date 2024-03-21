@@ -24,7 +24,6 @@ void USER_INTERFACE::waitOnDCPower(){
     while(true){
         if(dcPowerActive.value == 1){
             supplyActive_ = true;
-            // klee_print_range("Input ",userInput.value);
             // klee_print_range("Active ", supplyActive_);
             // klee_print_range("Motor status ", motorStatus_);
             break;

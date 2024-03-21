@@ -1,7 +1,7 @@
 {
-    "org_specification_file" : "spec11agent.cpp",
+    "org_specification_file" : "SI-model.cpp",
     "dynamicValidation" : true,
-    "formalValidation" : true,
+    "formalValidation" : false,
     "queueSize": 5,
     "z3Solver" : true
 }

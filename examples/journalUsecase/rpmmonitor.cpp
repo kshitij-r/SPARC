@@ -58,10 +58,10 @@ void RPM_MONITOR::checkRPMStatus(){
 }
 
 void RPM_MONITOR::reportRPMStatus(){
-    if(overspeed_){
-        RPMStatus.value = 1;
-    }
-    else{
-        RPMStatus.value = 0;
-    }
+    // if(overspeed_){
+    //     RPMStatus.value = 1;
+    // }
+    // else{
+    //     RPMStatus.value = 0;
+    // }
 }

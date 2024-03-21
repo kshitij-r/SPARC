@@ -22,7 +22,7 @@ class DC_MOTOR : public slaveIP{
         void waitForDCSupply();
         void waitForMotorCommand();
         void spinMotor();
-        void stopMotor();
+        bool stopMotor();
         void reportmotorRPM();
         void reportmotorTemp();
 }; 
@@ -58,12 +58,14 @@ void DC_MOTOR::spinMotor(){
     }
 }
 
-void DC_MOTOR::stopMotor(){
+bool DC_MOTOR::stopMotor(){
     if(!turnMotorOn_){
         motorRunning_ = false;
         motorSpeed_ = 0;
         motorTemp_ = 0;
+        return true;
     }
+    return false;
 }
 
 void DC_MOTOR::reportmotorRPM(){

@@ -1,0 +1,32 @@
+#ifndef JHEAD
+#define JHEAD
+#ifndef __clang__
+#include <iostream>
+#include <thread>
+#include <chrono>
+#endif
+#include <iostream>
+#include <thread>
+#include <stdlib.h>
+#include <cstdarg>
+#include <string>
+#include <assert.h>
+#include <algorithm>
+#include <iterator>
+#include <queue>
+#include <set>
+#include <list>
+#include <map>
+#include "guard.h"
+#include "klee.h"
+#include "../src/interface.cpp"
+#include "../src/baseIP.cpp"
+#include "../src/slave_config.cpp"
+#include "../examples/journalUsecase/dcmotor.cpp"
+#include "../examples/journalUsecase/dcpowersupply.cpp"
+#include "../examples/journalUsecase/input.cpp"
+#include "../examples/journalUsecase/interface.cpp"
+#include "../examples/journalUsecase/rpmmonitor.cpp"
+#include "../examples/journalUsecase/tempmonitor.cpp"
+#include "../examples/journalUsecase/software.cpp"
+#endif

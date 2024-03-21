@@ -1,0 +1,22 @@
+Properties to prove:
+
+
+[1] Stop motor (SW) is unreachable if (the DC motor process is never scheduled OR user 
+    input does not produce a subsequent OFF).
+
+[2] In Interface, either the ON or the OFF path is taken is always taken if the current 
+    input is !previous input.
+
+[3] If the input always produces an ON, then stop motor (motor process) is only reachable 
+    if either the RPM OR Temp threshold has been exceeded. 
+
+[4] The motor (motor process) will never stop if the report RPM OR temp interleaving is never scheduled.
+
+[5] If dc power (DC process) is never supplied to the motor and the input is always ON, the SW process can 
+    never reach the stop motor state.
+
+[6] If report RPM OR report temp interleavings (motor process) do not report status, and user input is always ON, the motor never stops and the stop motor (motor process)
+    is unreachable.
+
+
+
