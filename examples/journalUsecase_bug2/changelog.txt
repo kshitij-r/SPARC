@@ -1,0 +1,3 @@
+interface.cpp
+-Added else statement in waitOnUserInput that turns motor off.
+-This means if userInput.value == 1 && motor is on, motor will turn off.

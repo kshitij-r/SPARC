@@ -1,0 +1,6 @@
+Properties to prove:
+
+Motor will always turn off if the temperature threshold is exceeded, temp monitor
+is scheduled, software is scheduled, and dc motor is scheduled
+
+Depth: 12

@@ -1,0 +1,2 @@
+dcmotor.cpp
+-Motor will not report rpm and temperature if it has ever been stopped

@@ -1,0 +1,5 @@
+Properties to prove:
+
+When user commands ON, the motor will turn on, regardless of its previous state
+
+Min depth: 7

@@ -1,0 +1,2 @@
+software.cpp
+-Swapped setting temp threshold and rpm threshold

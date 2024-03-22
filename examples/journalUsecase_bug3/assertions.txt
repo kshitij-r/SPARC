@@ -1,0 +1,6 @@
+Properties to prove:
+
+If the user turns on the motor, then exceeding temperature or RPM threshold will
+cause the motor to turn off even if the user has not turned off the motor.
+
+Depth: 10
