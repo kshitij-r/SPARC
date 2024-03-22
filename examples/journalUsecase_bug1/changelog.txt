@@ -1,0 +1,4 @@
+rpmmonitor.cpp
+-Added previous_overspeed_ and previous_reset_ booleans
+-previous_reset_ is set to true when overspeed is detected, then overspeed is resolved
+-If previous_reset_ is true and overspeed is detected, overspeed_ is never set

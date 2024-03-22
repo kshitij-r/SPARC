@@ -1,0 +1,4 @@
+KLEE: Using STP solver backend
+KLEE: SAT solver: CryptoMiniSat
+KLEE: ERROR: spec4agent.cpp:128: ASSERTION FAIL: __assertion__globalresetAssert
+KLEE: NOTE: now ignoring this error at this location

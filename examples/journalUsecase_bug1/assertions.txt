@@ -1,0 +1,3 @@
+Properties to prove:
+
+[1] Motor will always turn off if the temp threshold is exceeded. 

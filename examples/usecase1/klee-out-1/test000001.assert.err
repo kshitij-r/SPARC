@@ -1,0 +1,7 @@
+Error: ASSERTION FAIL: __assertion__globalresetAssert
+File: spec4agent.cpp
+Line: 128
+assembly.ll line: 5721
+State: 9
+Stack: 
+	#000005721 in main() at spec4agent.cpp:128
